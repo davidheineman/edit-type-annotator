@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link href="css/style.css" rel="stylesheet">
+        <title>Substitute Annotator</title>
+    </head>
+
+    <body>
+        <div class="container" id="paragraph-container">
+            <h1>Evaluate Quality of Simplifications</h1>
+            <h4>Sentence ID: <span id='curr'>[curr]</span></h4>
+            <p class='lead'>Add instructions here (or instructions button)</p>
+            <div class='card'>
+                <div class="jumbotron jumbotron-fluid cwi-box card-body">
+                    <div class='row'>
+                        <!-- <div class='col'>
+                            <div class='pg' id='pg'>
+                                [paragrpah]
+                            </div>
+                        </div>
+                            <div class='col'> -->
+                        <div class='input-sent' id='input-sent-above'></div>
+                        <h4>Deletion-focused Simplifications</h4>
+                        <ul class="list-group list-group-flush" id='del-list'></ul>
+
+                        <h4>Paraphrasing-focused Simplifications</h4>
+                        <ul class="list-group list-group-flush" id='par-list'></ul>
+
+                        <h4>Splitting-focused Simplifications</h4>
+                        <ul class="list-group list-group-flush" id='spt-list'></ul>
+
+                        <div class='input-sent' id='input-sent-below'></div>
+
+                        <div class='submit-buttons'>
+                            <button class="btn btn-success" type="submit" id="submit">Next Sentence</button>
+                            <button class="btn btn-primary hidden-pg" type="submit" id="next-pg">Export Data & Next Paragraph</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id='null-container'>
+            <h1>Paragrpah Not Found</h1>
+            <h4>Please make sure the URL you have been given is correct</h4>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/script.js"></script>
+</html>

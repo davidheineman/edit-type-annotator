@@ -1,0 +1,55 @@
+.container {
+    margin-top: 32px;
+}
+h1 {
+    margin-bottom: 16px;
+}
+.hidden-pg {
+    display:none;
+}
+#paragraph-container, #null-container {
+    display:none;
+}
+/* .del {
+    background-color: red;
+    border: red;
+    border-style: inset;
+    border-width: unset;
+} */
+.del:before {
+    content: "^";
+    color: red;
+    position: relative;
+    top: 15px;
+}
+.par {
+    font-weight: bold;
+}
+/* .spt {
+    background-color: purple;
+    border: black;
+    border-style: inset;
+    border-width: unset;
+} */
+.spt:before {
+    content: "||";
+    color: black;
+    margin-right: 2px;
+}
+.cwi-box h4 {
+    margin-top: 8px;
+}
+.submit-buttons {
+    margin-top: 8px;
+}
+.submit-buttons .btn-success {
+    float: right;
+}
+.form-control {
+    padding: .15rem .75rem;
+}
+.input-sent {
+    font-style: italic;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
