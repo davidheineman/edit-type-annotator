@@ -65,7 +65,7 @@ function createGroup(df, container_id) {
         contr = contr.concat("</p>");
 
         // Create col container for sentence
-        let box = '<input min="0" max="100" class="form-control" aria-label="Score">'
+        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div>'
         let div = "<div class='row'><div class='col-2'>" + box + "</div><div class='col-10'>" + contr + "</div></div>";
         let li = $("<li class='list-group-item'></li>").append($(div));
 
@@ -87,10 +87,12 @@ function disableFormControl() {
             if (nv > 100) {
                 e.preventDefault();
                 // add warning pop-up
-                console.log('Out of bounds!')
+                $($(this).parent().find('.form-control')).addClass('is-invalid');
             } else if (nv < 0) {
                 // Don't need warning pop-up because less likely
-                console.log('Negative!')
+                // console.log('Negative number!')
+            } else {
+                $($(this).parent().find('.form-control')).removeClass('is-invalid');
             }
         }
     })
@@ -158,14 +160,15 @@ function parseSentList(container_id) {
     return out;
 }
 
-
 // TODO: 
 // [X] Handle form submission (get sentences, scores, package into json and download)
 // [X] Prevent non-numeric or out of bounds inputs
-// [ ] Make much prettier
+// [X] Make much prettier
+// [ ] Make even prettier
 // [ ] Add "instructions" button with pop-up hover thing
 // [ ] Add ability to handle multiple sentences
-// [ ] Add pop-up warning for out-of-bounds inputs
+        // is this necessary?
+// [X] Add pop-up warning for out-of-bounds inputs
 
 function downloadData(data) {
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
@@ -184,4 +187,13 @@ $.ajax({
 
 $('button#submit').on('click', function() {
     submitForm();
+})
+
+// Enable toggling of instructions modal using buttons
+$('button#view-instructions').on('click', function() {
+    $('#instructions').modal('toggle')
+})
+
+$('.modal-footer button').on('click', function() {
+    $('#instructions').modal('toggle')
 })

@@ -53,3 +53,30 @@ h1 {
     margin-bottom: 16px;
     font-size: 16px;
 }
+
+.modal-body {
+    font-style: justify;
+}
+
+.ih {
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* All to get the instructions / sent id to float correctly */
+.container {
+    margin-bottom: 100px;
+}
+
+.header {
+    display: flow-root;
+}
+
+.lead {
+    float: left;
+}
+
+.header h4 {
+    float: right;
+}
