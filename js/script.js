@@ -17,8 +17,9 @@ function displayAnnotator(data) {
 }
 
 function generateView(sent) {
-    $( "#input-sent-above").html(sent.Original);
-    $( "#input-sent-below").html(sent.Original);
+    $("#input-sent-above").html(sent.Original);
+    $("#input-sent-below").html(sent.Original);
+    $(".input-sent").html(sent.Original);
 
 
     createGroup(sent.Deletions, "#del-list");
@@ -94,6 +95,12 @@ function disableFormControl() {
             } else {
                 $($(this).parent().find('.form-control')).removeClass('is-invalid');
             }
+        }
+    })
+    $('.form-control').on('change', function(e) {
+        let nv = parseInt($(this).val() + String.fromCharCode(e.keyCode));
+        if (nv < 100 && nv > 0) {
+            $($(this).parent().find('.form-control')).removeClass('is-invalid');
         }
     })
 }

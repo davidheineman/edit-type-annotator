@@ -50,8 +50,12 @@ h1 {
     padding: .15rem .75rem;
 }
 .input-sent {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 16px;
+    color: black;
+}
+.alert-info {
+    background-color: #ecfafd;
+    border-color: #dfdfdf;
 }
 
 .modal-body {
@@ -79,6 +83,7 @@ h1 {
 
 .header h4 {
     float: right;
+    margin-top: 4px;
 }
 
 .alert {
