@@ -165,7 +165,7 @@ function parseSentList(container_id) {
 // [X] Prevent non-numeric or out of bounds inputs
 // [X] Make much prettier
 // [ ] Make even prettier
-// [ ] Add "instructions" button with pop-up hover thing
+// [X] Add "instructions" button with pop-up hover thing
 // [ ] Add ability to handle multiple sentences
         // is this necessary?
 // [X] Add pop-up warning for out-of-bounds inputs

@@ -38,6 +38,7 @@ h1 {
 }
 .cwi-box h4 {
     margin-top: 8px;
+    font-size: 18px;
 }
 .submit-buttons {
     margin-top: 8px;
@@ -49,9 +50,8 @@ h1 {
     padding: .15rem .75rem;
 }
 .input-sent {
-    font-style: italic;
-    margin-bottom: 16px;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .modal-body {
@@ -79,4 +79,11 @@ h1 {
 
 .header h4 {
     float: right;
+}
+
+.alert {
+    margin: 1rem 1rem;
+}
+.row>* {
+    flex-shrink: inherit;
 }
