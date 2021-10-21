@@ -173,7 +173,7 @@ function parseSentList(container_id) {
 
 function downloadData(data) {
     // Import JSON data into mturk hit entry
-    $('#mturk-hit').val(JSON.stringify(table));
+    $('#mturk-hit').val(JSON.stringify(data));
 
     // Download JSON data
     // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
