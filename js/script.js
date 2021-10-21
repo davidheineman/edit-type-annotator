@@ -7,6 +7,10 @@ function displayAnnotator(data) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     var pgNum = parseInt(urlParams.get('s'));
+
+    // for AWS testing
+    var pgNum = 0;
+
     if (!Object.is(pgNum, NaN) && pgNum >= 0 && pgNum < data.length) {
         $( '#paragraph-container' ).css('display', 'block');
         $( '#curr' ).html(pgNum);
