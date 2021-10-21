@@ -171,24 +171,18 @@ function parseSentList(container_id) {
     return out;
 }
 
-// TODO: 
-// [X] Handle form submission (get sentences, scores, package into json and download)
-// [X] Prevent non-numeric or out of bounds inputs
-// [X] Make much prettier
-// [ ] Make even prettier
-// [X] Add "instructions" button with pop-up hover thing
-// [ ] Add ability to handle multiple sentences
-        // is this necessary?
-// [X] Add pop-up warning for out-of-bounds inputs
-
 function downloadData(data) {
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "output.json");
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+    // Import JSON data into mturk hit entry
+    $('#mturk-hit').val(JSON.stringify(table));
+
+    // Download JSON data
+    // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+    // var downloadAnchorNode = document.createElement('a');
+    // downloadAnchorNode.setAttribute("href", dataStr);
+    // downloadAnchorNode.setAttribute("download", "output.json");
+    // document.body.appendChild(downloadAnchorNode);
+    // downloadAnchorNode.click();
+    // downloadAnchorNode.remove();
 }
 
 $.ajax({
