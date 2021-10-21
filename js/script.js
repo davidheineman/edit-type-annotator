@@ -192,7 +192,8 @@ function downloadData(data) {
 }
 
 $.ajax({
-    url: 'data/input.json',
+    // exactly specify location for AWS
+    url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
     dataType: 'json',
 }).done(displayAnnotator);
 
