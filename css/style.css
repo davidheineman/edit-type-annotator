@@ -92,3 +92,8 @@ h1 {
     font-size: 0.63em;
     line-height: 10px;
 }
+
+/* Please delete this!! */
+.col-2 {
+    max-width: 76px;
+}

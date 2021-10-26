@@ -4,6 +4,7 @@ function displayAnnotator(data) {
 }
 
 function generateView(sent) {
+    $(".input-sent").html(sent.Original);
     createGroup(sent.Splittings, "#par-list");
 }
 
