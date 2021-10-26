@@ -3,14 +3,11 @@
 
 // Finds the value of "s" in the URL and if it is valid, displays it
 // https://[url]/index.html?s=0 => ID 0 in input.json
-function displayAnnotator(data) {
+function displayAnnotatorWebDemo(data) {
+    // For web demo, draw ID from URL
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     var pgNum = parseInt(urlParams.get('s'));
-
-    // for AWS testing
-    var pgNum = 0;
-
     if (!Object.is(pgNum, NaN) && pgNum >= 0 && pgNum < data.length) {
         $( '#paragraph-container' ).css('display', 'block');
         $( '#curr' ).html(pgNum);
@@ -19,6 +16,13 @@ function displayAnnotator(data) {
         $( '#null-container' ).css('display', 'block');
     }
 }
+
+function displayAnnotatorMturk(data) {
+    // For MTurk, draw ID from CSV
+    let s = parseInt($('#curr').text());
+    generateView(data[s]);
+}
+
 
 function generateView(sent) {
     $("#input-sent-above").html(sent.Original);
@@ -112,6 +116,7 @@ function disableFormControl() {
 var out  = [];
 
 function submitForm() {
+    // Compile and submit data
     let sent_out = {};
 
     sent_out['ID'] = parseInt((new URLSearchParams(window.location.search)).get('s'));
@@ -121,7 +126,7 @@ function submitForm() {
     sent_out['Splittings'] = parseSentList("#spt-list");
 
     out = out.concat(sent_out);
-    downloadData(out);    
+    downloadData(out);
 }
 
 function parseSentList(container_id) {
@@ -185,21 +190,34 @@ function downloadData(data) {
     // downloadAnchorNode.remove();
 }
 
-$.ajax({
-    // exactly specify location for AWS
-    url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
-    dataType: 'json',
-}).done(displayAnnotator);
-
 $('button#submit').on('click', function() {
-    submitForm();
-})
+    // Check to make sure every sentence has a score
+    let valid = true;
+    $('.form-control').each(function() {
+        if ($(this).val() == "") {
+            $(this).addClass('is-invalid');
+            valid = false;
+        }
+    })
 
+    // If the entry is valid, submit the form
+    if (valid) {
+        submitForm();
+    }
+})
+ 
 // Enable toggling of instructions modal using buttons
-$('button#view-instructions').on('click', function() {
+$('button#view-instructions, .modal-footer button').on('click', function() {
     $('#instructions').modal('toggle')
 })
 
-$('.modal-footer button').on('click', function() {
-    $('#instructions').modal('toggle')
-})
+// For web demo, draw data from JSON file
+$.ajax({
+    url: 'data/input.json',
+    dataType: 'json',
+}).done(displayAnnotatorWebDemo);
+
+// $.ajax({
+//     url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
+//     dataType: 'json',
+// }).done(displayAnnotatorMturk);

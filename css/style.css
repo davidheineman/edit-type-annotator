@@ -7,15 +7,12 @@ h1 {
 .hidden-pg {
     display:none;
 }
+.hidden-edit {
+    display: none;
+}
 #paragraph-container, #null-container {
     display:none;
 }
-/* .del {
-    background-color: red;
-    border: red;
-    border-style: inset;
-    border-width: unset;
-} */
 .del:before {
     content: "^";
     color: red;
@@ -25,12 +22,6 @@ h1 {
 .par {
     font-weight: bold;
 }
-/* .spt {
-    background-color: purple;
-    border: black;
-    border-style: inset;
-    border-width: unset;
-} */
 .spt:before {
     content: "||";
     color: black;
@@ -67,28 +58,37 @@ h1 {
     font-weight: bold;
     text-decoration: underline;
 }
-
-/* All to get the instructions / sent id to float correctly */
 .container {
     margin-bottom: 100px;
 }
-
 .header {
     display: flow-root;
 }
-
 .lead {
     float: left;
 }
-
 .header h4 {
     float: right;
     margin-top: 4px;
 }
-
 .alert {
     margin: 1rem 1rem;
+    padding: 16px 68px 16px 68px;
 }
 .row>* {
     flex-shrink: inherit;
+}
+.ui-sortable-handle .col-2 {
+    max-width: 76px;
+}
+.ui-sortable-handle .col-10 {
+    padding-left: 4px;
+}
+.form-control.is-invalid {
+    background-image: none !important;
+    padding-right: inherit;
+}
+.invalid-feedback {
+    font-size: 0.63em;
+    line-height: 10px;
 }
