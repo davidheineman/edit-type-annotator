@@ -485,12 +485,18 @@ $('button#view-instructions, button#close-instructions').on('click', function() 
 });
 
 // For web demo, draw data from JSON file
-// $.ajax({
-//     url: 'data/input.json',
-//     dataType: 'json',
-// }).done(displayAnnotatorWebDemo);
+function startupInterface(mturk) {
+    if (mturk) {
+        $.ajax({
+            url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
+            dataType: 'json',
+        }).done(displayAnnotatorMturk);
+    } else {
+        $.ajax({
+            url: 'data/input.json',
+            dataType: 'json',
+        }).done(displayAnnotatorWebDemo);
+    }
+}
 
-$.ajax({
-    url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
-    dataType: 'json',
-}).done(displayAnnotatorMturk);
+
