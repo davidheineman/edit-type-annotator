@@ -214,8 +214,6 @@ function initDiffFixer() {
         if (sel.anchorOffset != sel.focusOffset) {
             var rng = sel.getRangeAt(0);
             if (rng.commonAncestorContainer = $('#fix-spans-body')[0] && rng.startContainer == rng.endContainer) {
-                console.log('success');
-
                 var el = document.createElement("span");
                 el.className = "par";
 
@@ -229,8 +227,6 @@ function initDiffFixer() {
                 sel.removeAllRanges();
                 sel.addRange(rng);
             }
-            console.log(sel);
-            console.log(rng);
         }
         sel = window.getSelection();
         sel.removeAllRanges();
@@ -489,12 +485,12 @@ $('button#view-instructions, button#close-instructions').on('click', function() 
 });
 
 // For web demo, draw data from JSON file
-$.ajax({
-    url: 'data/input.json',
-    dataType: 'json',
-}).done(displayAnnotatorWebDemo);
-
 // $.ajax({
-//     url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
+//     url: 'data/input.json',
 //     dataType: 'json',
-// }).done(displayAnnotatorMturk);
+// }).done(displayAnnotatorWebDemo);
+
+$.ajax({
+    url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
+    dataType: 'json',
+}).done(displayAnnotatorMturk);
