@@ -133,8 +133,9 @@ $(document).on("mousedown", '.par', function (e) {
     $(document).on("mouseup", function () {
         $(document).off("mousemove");
     });
-})
+});
 
+// Moving deletions & paraphrases
 $(document).on("mousedown", '.del, .spt', function (curr) {
     // Recreate the span
     var el = document.createElement("span");
@@ -214,6 +215,11 @@ $(document).on("mousedown", '.del, .spt', function (curr) {
         }        
         parent.normalize();
     });
+});
+
+// Allows double-clicking to delete spans
+$(document).on("dblclick", '.par, .del, .spt', function(){
+    $(this).remove();
 });
 
 function createGroup(df, container_id) {

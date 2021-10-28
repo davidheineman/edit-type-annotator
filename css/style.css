@@ -92,6 +92,44 @@ h1 {
     font-size: 0.63em;
     line-height: 10px;
 }
+.btn-fix {
+    padding: 2px 4px 2px 4px;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 8px;
+}
+.span-modal-body .par:before {
+    content: "v";
+    color: rgb(52, 133, 255);
+    font-size: 10px;
+    position: relative;
+    top: -10px;
+    font-weight: 500;
+}
+.span-modal-body .par:after {
+    content: "v";
+    color: rgb(52, 133, 255);
+    font-size: 10px;
+    position: relative;
+    top: -10px;
+    font-weight: 500;
+}
+.span-modal-body {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.modal-header {
+    display: block;
+}
+.fix-span-instructions {
+    padding-top: 0.75rem;
+    font-style: italic;
+}
+.modal-header .alert-info {
+    padding: inherit;
+    margin-left: 0;
+    margin-right: 0;
+}
 
 /* Please delete this!! */
 .col-2 {

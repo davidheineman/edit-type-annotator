@@ -1,6 +1,3 @@
-// Sortable code
-(function(b){b.support.touch="ontouchend" in document;if(!b.support.touch){return;}var c=b.ui.mouse.prototype,e=c._mouseInit,a;function d(g,h){if(g.originalEvent.touches.length>1){return;}g.preventDefault();var i=g.originalEvent.changedTouches[0],f=document.createEvent("MouseEvents");f.initMouseEvent(h,true,true,window,1,i.screenX,i.screenY,i.clientX,i.clientY,false,false,false,false,0,null);g.target.dispatchEvent(f);}c._touchStart=function(g){var f=this;if(a||!f._mouseCapture(g.originalEvent.changedTouches[0])){return;}a=true;f._touchMoved=false;d(g,"mouseover");d(g,"mousemove");d(g,"mousedown");};c._touchMove=function(f){if(!a){return;}this._touchMoved=true;d(f,"mousemove");};c._touchEnd=function(f){if(!a){return;}d(f,"mouseup");d(f,"mouseout");if(!this._touchMoved){d(f,"click");}a=false;};c._mouseInit=function(){var f=this;f.element.bind("touchstart",b.proxy(f,"_touchStart")).bind("touchmove",b.proxy(f,"_touchMove")).bind("touchend",b.proxy(f,"_touchEnd"));e.call(f);};})(jQuery);
-
 // Finds the value of "s" in the URL and if it is valid, displays it
 // https://[url]/index.html?s=0 => ID 0 in input.json
 function displayAnnotatorWebDemo(data) {
@@ -33,6 +30,15 @@ function generateView(sent) {
     createGroup(sent.Deletions, "#del-list");
     createGroup(sent.Paraphrases, "#par-list");
     createGroup(sent.Splittings, "#spt-list");
+
+    initFixButtons();
+}
+
+function makeSortable(container_id) {
+    new Sortable($(container_id)[0], {
+        group: 'shared',
+        animation: 150
+    });
 }
 
 function createGroup(df, container_id) {
@@ -74,7 +80,7 @@ function createGroup(df, container_id) {
         contr = contr.concat("</p>");
 
         // Create col container for sentence
-        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div>'
+        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div><button type="button" class="btn btn-outline-secondary btn-fix" data-dismiss="modal">Fix</button>'
         let div = "<div class='row'><div class='col-2'>" + box + "</div><div class='col-10'>" + contr + "</div></div>";
         let li = $("<li class='list-group-item'></li>").append($(div));
 
@@ -82,7 +88,7 @@ function createGroup(df, container_id) {
 
         disableFormControl();
     }
-    $(container_id).sortable().disableSelection();  
+    makeSortable(container_id);
 }
 
 function disableFormControl() {
@@ -176,6 +182,277 @@ function parseSentList(container_id) {
     return out;
 }
 
+function initFixButtons() {
+    $('.btn-fix').on('click', function() {
+        $('#fix-spans').modal('toggle');
+
+        // Get the paragraph to be fixed
+        var p = $($($(this)[0]).parent()[0].nextSibling.childNodes[0]);
+
+        $('#fix-spans-body')[0].innerHTML = p.html();
+        initDiffFixer();
+
+        $('#fix-spans-submit').on('click', function() {
+            p[0].innerHTML = $('#fix-spans-body').html();
+            $('#fix-spans').modal('toggle');
+            $('#fix-spans-body, #fix-spans-submit, #fix-spans-cancel').off();
+        });
+    
+        $('#fix-spans-cancel').on('click', function() {
+            $('#fix-spans-body').off();
+            $('#fix-spans-body')[0].innerHTML = p.html();
+            initDiffFixer();
+        });
+    });
+}
+
+// !!! DIFF FIXER CODE !!!!
+function initDiffFixer() {
+    // Add parahrase on highlight
+    $('#fix-spans-body').on("mouseup", function (e) {
+        var sel = window.getSelection()
+        if (sel.anchorOffset != sel.focusOffset) {
+            var rng = sel.getRangeAt(0);
+            if (rng.commonAncestorContainer = $('#fix-spans-body')[0] && rng.startContainer == rng.endContainer) {
+                console.log('success');
+
+                var el = document.createElement("span");
+                el.className = "par";
+
+                var span = document.createElement('span');
+                span.className = 'par';
+                span.innerText = rng.toString();
+                rng.deleteContents();
+                rng.insertNode(span);
+                rng.collapse(true);
+                sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(rng);
+            }
+            console.log(sel);
+            console.log(rng);
+        }
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        $('#fix-spans-body')[0].normalize();
+    });
+
+    // Moving paraphrases
+    $('#fix-spans-body').on("mousedown", '.par', function (e) {
+        var parent = $(e.target).parent()[0];
+        e.preventDefault();
+        var curr = e.target;
+
+        // Recreate the span
+        var el = document.createElement("span");
+        el.className = "par";
+
+        // Sometimes the bounding box for the text container is off, fix this 
+        var dir = "left"
+        range = document.caretRangeFromPoint(e.clientX, e.clientY);
+        if (range.commonAncestorContainer.wholeText != e.target.innerText) {
+            range = document.caretRangeFromPoint(e.clientX - 5, e.clientY);
+        }
+        if (range.startOffset > range.commonAncestorContainer.wholeText.length / 2) {
+            dir = "right";
+        }
+
+        // See where the mouse is moving
+        $('#fix-spans-body').on("mousemove", function(e) {
+            var x = e.clientX, y = e.clientY;
+
+            range = document.caretRangeFromPoint(x, y);
+
+            var all =  $(curr)[0].innerText;
+            var text1len = 0;
+            // Prepend span
+            if ($(curr)[0].previousSibling != null && $(curr)[0].previousSibling.wholeText != null) {
+                all = $(curr)[0].previousSibling.wholeText + all;
+                text1len = $(curr)[0].previousSibling.length;
+            }
+            // Postpend span
+            if ($(curr)[0].nextSibling != null) {
+                all = all + $(curr)[0].nextSibling.wholeText;
+            }
+
+            var spanlen = $(curr)[0].innerText.length;
+            var start_idx, end_idx;
+
+            // Default values if we're in other spans
+            start_idx = text1len;
+            end_idx = text1len + spanlen;
+
+            // If we're moving outside the sentence
+            if ($(range.commonAncestorContainer.parentElement).is(parent)) {
+                if (dir == "left") {
+                    start_idx = range.startOffset;
+                    end_idx = text1len + spanlen;
+                } else {
+                    start_idx = text1len;
+                    end_idx = text1len + spanlen + range.startOffset;    
+                }
+                // // If we're moving to the left
+                // if ($(range.commonAncestorContainer.nextSibling).is(curr)) {
+                //     start_idx = range.startOffset;
+                //     end_idx = text1len + spanlen;
+                // } 
+                // // If we're moving to the right
+                // else if ($(range.commonAncestorContainer.previousSibling).is(curr)) {
+                //     start_idx = text1len;
+                //     end_idx = text1len + spanlen + range.startOffset;
+                // }
+            } 
+            // If we're moving within the sentence
+            else if ($(range.commonAncestorContainer.parentElement).is(curr)) {
+                if (dir == "left") {
+                    // inner left
+                    start_idx = text1len + range.startOffset;
+                    end_idx = text1len + spanlen;
+                } else {
+                    // inner right
+                    start_idx = text1len;
+                    end_idx = text1len + range.startOffset;
+                }
+            }
+
+            // console.log(all.substring(0, start_idx));
+            // console.log(all.substring(start_idx, end_idx));
+            // console.log(all.substring(end_idx));
+
+            // Create a new text element if it didn't exist before
+            if (!$(curr)[0].previousSibling) {
+                var t = document.createTextNode(all.substring(0, start_idx));
+                $(t).insertBefore($(curr)[0]); 
+            } else if ($(curr)[0].previousSibling.nodeName == 'SPAN') {
+                if (start_idx != text1len) {
+                    var t = document.createTextNode(all.substring(0, start_idx));
+                    $(t).insertBefore($(curr)[0]);
+                }
+            } else {
+                $(curr)[0].previousSibling.textContent = all.substring(0, start_idx);
+            }
+
+            // Create a new text element if it didn't exist after
+            if (!$(curr)[0].nextSibling){
+                // If there is no next sibling, we need to create one
+                var t = document.createTextNode(all.substring(end_idx));
+                $(t).insertAfter($(curr)[0]);
+            } else if ($(curr)[0].nextSibling.nodeName == 'SPAN') {
+                if (end_idx != text1len + spanlen) {
+                    var t = document.createTextNode(all.substring(end_idx));
+                    $(t).insertAfter($(curr)[0]);
+                }
+            } else {
+                $(curr)[0].nextSibling.textContent = all.substring(end_idx);
+            }
+            $(curr)[0].innerText = all.substring(start_idx, end_idx);
+        })
+
+        $('#fix-spans-body').on("mouseup", function () {
+            $('#fix-spans-body').off("mousemove");
+        });
+    });
+
+    // Moving deletions & paraphrases
+    $('#fix-spans-body').on("mousedown", '.del, .spt', function (curr) {
+        // Recreate the span
+        var el = document.createElement("span");
+        el.className = $(curr.target).attr("class");
+
+        // Save the location of the original sentence the span was saved in
+        var parent = $(curr.target).parent()[0];
+        var orig = curr;
+        var orig_target = curr.target;
+
+        curr.preventDefault();
+        
+        $('#fix-spans-body').on("mousemove", function (curr) {
+            var range, textRange, x = curr.clientX, y = curr.clientY;
+
+            // Delete the old span
+            $(curr).remove();
+            $($(orig.target)).addClass("hidden-edit");
+            
+            // Try the standards-based way first
+            if (document.caretPositionFromPoint) {
+                var pos = document.caretPositionFromPoint(x, y);
+                range = document.createRange();
+                range.setStart(pos.offsetNode, pos.offset);
+                range.collapse();
+            }
+            // Next, the WebKit way
+            else if (document.caretRangeFromPoint) {
+                range = document.caretRangeFromPoint(x, y);
+            }
+            // Finally, the IE way
+            else if (document.body.createTextRange) {
+                textRange = document.body.createTextRange();
+                textRange.moveToPoint(x, y);
+                var spanId = "temp_" + ("" + Math.random()).slice(2);
+                textRange.pasteHTML('<span id="' + spanId + '">&nbsp;</span>');
+                var span = document.getElementById(spanId);
+                //place the new pin
+                span.parentNode.replaceChild(el, span);
+            }
+
+            // Place the new span
+            if (range) {
+                range.insertNode(el);
+            }
+
+            // Fix broken text spans
+            el.previousSibling.parentNode.normalize();
+
+            // Check if the new span is inside the paragraph
+            var parent_new = $(el).parent()[0];
+            if (!$(parent).is(parent_new)) {
+                $(el).remove();
+            }
+        });
+
+        // Remove the handler when the user has stopped dragging
+        $('#fix-spans-body').on("mouseup", function () {
+            $('#fix-spans-body').off("mousemove");
+
+            // Check if the new span is inside the paragraph, if not, restore the original span
+            var parent_new = $(el).parent()[0];
+            if (!$(parent).is(parent_new)) {
+                // Restore the original span
+                $(orig_target).removeClass("hidden-edit");
+                $(el).remove();
+            } else {
+                // Remove the original span
+                $(orig_target).remove();
+
+                // for each hidden edit, remove and normalize the parent
+                $(".hidden-edit").each(function (i, elm) {
+                    var temp = elm.parentNode;
+                    $(elm).remove();
+                    temp.normalize();
+                });
+            }        
+            parent.normalize();
+        });
+    });
+
+    // Allows double-clicking to delete spans
+    // needs to not remove text on par removal
+    $('#fix-spans-body').on("dblclick", '.par, .del, .spt', function(){
+        // If there's children, add them to sibling
+        if ($(this)[0].innerText.length != 0) {
+            var contents = $(this)[0].innerText;
+            var t = document.createTextNode(contents);
+            $(t).insertBefore($(this)[0]);
+            var temp = $(this)[0].parentNode;
+            $(this).remove();
+            temp.normalize();
+        } else {
+            $(this).remove();
+        }
+    });
+}
+
+
 function downloadData(data) {
     // Import JSON data into mturk hit entry
     $('#mturk-hit').val(JSON.stringify(data));
@@ -204,12 +481,12 @@ $('button#submit').on('click', function() {
     if (valid) {
         submitForm();
     }
-})
+});
  
 // Enable toggling of instructions modal using buttons
-$('button#view-instructions, .modal-footer button').on('click', function() {
-    $('#instructions').modal('toggle')
-})
+$('button#view-instructions, button#close-instructions').on('click', function() {
+    $('#instructions').modal('toggle');
+});
 
 // For web demo, draw data from JSON file
 $.ajax({
