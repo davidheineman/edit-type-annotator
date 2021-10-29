@@ -126,7 +126,8 @@ function submitForm() {
     // Compile and submit data
     let sent_out = {};
 
-    sent_out['ID'] = parseInt((new URLSearchParams(window.location.search)).get('s'));
+    // sent_out['ID'] = parseInt((new URLSearchParams(window.location.search)).get('s'));
+    sent_out['ID'] = parseInt($('#curr').text());
     sent_out['Original'] = $('#input-sent-above').text();
     sent_out['Deletions'] = parseSentList("#del-list");
     sent_out['Paraphrases'] = parseSentList("#par-list");
