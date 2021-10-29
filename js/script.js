@@ -16,9 +16,8 @@ function displayAnnotatorWebDemo(data) {
 
 function displayAnnotatorMturk(data) {
     // For MTurk, draw ID from CSV
+    $( '#paragraph-container' ).css('display', 'block');
     let s = parseInt($('#curr').text());
-    console.log(s);
-    console.log(data[s]);
     generateView(data[s]);
 }
 
