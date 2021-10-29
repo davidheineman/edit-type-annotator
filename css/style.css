@@ -131,6 +131,19 @@ h1 {
     margin-right: 0;
 }
 
+/* Extra CSS for tutorial */
+.instructions .card {
+    padding: 16px;
+    padding-top: 32px;
+}
+.instruction-del {
+    color: red;
+    text-decoration: line-through;
+}
+.instruction-par {
+    color: green;
+}
+
 /* Please delete this!! */
 .col-2 {
     max-width: 76px;
