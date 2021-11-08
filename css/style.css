@@ -148,3 +148,10 @@ h1 {
 .col-2 {
     max-width: 76px;
 }
+
+.col-10:first-letter{
+    text-transform: capitalize;
+}
+.caps{
+    text-transform: capitalize;
+}

@@ -33,6 +33,7 @@ function generateView(sent) {
     createGroup(sent.Splittings, "#spt-list");
 
     initFixButtons();
+    initFixCaps();
 }
 
 function makeSortable(container_id) {
@@ -198,6 +199,7 @@ function initFixButtons() {
             p[0].innerHTML = $('#fix-spans-body').html();
             $('#fix-spans').modal('toggle');
             $('#fix-spans-body, #fix-spans-submit, #fix-spans-cancel').off();
+            initFixCaps();
         });
     
         $('#fix-spans-cancel').on('click', function() {
@@ -206,6 +208,21 @@ function initFixButtons() {
             initDiffFixer();
         });
     });
+}
+
+function initFixCaps() {
+    $('.par').each(function() {
+        fixCaps(this);
+    });
+}
+
+function fixCaps(e) {
+    let first = $($(e).parent().children()).filter('.par').first()[0];
+    if (first == e && $(e).parent().text().slice(0, 1).toUpperCase() == $(first).text().slice(0, 1).toUpperCase()) {
+        $(e).addClass('caps');
+    } else {
+        $(e).removeClass('caps');
+    }
 }
 
 // !!! DIFF FIXER CODE !!!!
