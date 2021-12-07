@@ -1,7 +1,7 @@
 ## Sentence Ranking Annotator
 Work-in-progress annotator for upcoming paper. `index.html` can be used both as a standalone annotator or dropped directly into mTurk for annotation.
 
-**View the [tutorial](https://davidheineman.github.io/sentence-ranking-annotator/tutorial), or see a [demo of the interface](https://davidheineman.github.io/sentence-ranking-annotator/?s=0).**
+**View the [tutorial](https://davidheineman.github.io/edit-type-annotator/tutorial), or see a [demo of the interface](https://davidheineman.github.io/edit-type-annotator/?s=0).**
 
 ### How to use
 In `script.js`, it calls the content in `data/input.json` for the annotator to use based on either the url (the `?s=n` suffix) or directly from mTurk. If you use mTurk, just make sure to update the `input.json` and upload an excel files of the sentence ids you want annotated.
