@@ -506,8 +506,9 @@ $('button#view-instructions, button#close-instructions').on('click', function() 
 });
 
 // For web demo, draw data from JSON file
-function startupInterface(mturk) {
-    if (mturk) {
+function startupInterface(is_mturk) {
+    mturk = is_mturk;
+    if (is_mturk) {
         $.ajax({
             url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
             dataType: 'json',
@@ -520,4 +521,5 @@ function startupInterface(mturk) {
     }
 }
 
+var mturk;
 
