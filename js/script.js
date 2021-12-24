@@ -7,7 +7,7 @@ function displayAnnotatorWebDemo(data) {
     var pgNum = parseInt(urlParams.get('s'));
     if (!Object.is(pgNum, NaN) && pgNum >= 0 && pgNum < data.length) {
         $( '#paragraph-container' ).css('display', 'block');
-        $( '#curr' ).html(pgNum);
+        $( '#curr' ).html(data[pgNum].ID);
         generateView(data[pgNum]);
     } else {
         $( '#null-container' ).css('display', 'block');
