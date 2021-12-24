@@ -18,7 +18,21 @@ function displayAnnotatorMturk(data) {
     // For MTurk, draw ID from CSV
     $( '#paragraph-container' ).css('display', 'block');
     let s = parseInt($('#curr').text());
-    generateView(data[s]);
+
+    // Searches data list for the first entry with the same ID as the MTurk .csv file
+    let s_idx = -1;
+    for (var entry in temp1) {
+        if (temp1[entry].ID == s) {
+            s_idx = parseInt(entry);
+            break;
+        }
+    }
+    if (s_idx == -1) {
+        console.log("Error: ID not found");
+        return;
+    }
+
+    generateView(data[s_idx]);
 }
 
 
