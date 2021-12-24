@@ -47,13 +47,14 @@ function createGroup(df, container_id) {
     for (let i = 0; i < df.length; i++) {
         // Write sentence
         let s = df[i][0];           // sentence
+        let source = df[i][1];      // source
         let contr = "<p>";          // DOM container for sent
         
         // Write beginning of sentence
         contr = contr.concat(s.substring(0, df[i][1][1]));
 
         // Show edits
-        for (let j = 1; j < df[i].length; j++) {
+        for (let j = 2; j < df[i].length; j++) {
             let edit = df[i][j];
 
             // Add the non-annotated part of the sentence
@@ -83,7 +84,7 @@ function createGroup(df, container_id) {
 
         // Create col container for sentence
         let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div><button type="button" class="btn btn-outline-secondary btn-fix" data-dismiss="modal">Fix</button>'
-        let div = "<div class='row'><div class='col-2'>" + box + "</div><div class='col-10'>" + contr + "</div></div>";
+        let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + "</div><div class='col-10'>" + contr + "</div></div>";
         let li = $("<li class='list-group-item'></li>").append($(div));
 
         $(container_id).append(li);
@@ -148,6 +149,9 @@ function parseSentList(container_id) {
 
         // get sentence
         entry.push($($($($(this).children()[0]).children()[1]).children()[0]).text());
+
+        // get source
+        entry.push($($(this).children()[0])[0].attributes[1].value);
 
         // get complete html
         let html = $($($($(this).children()[0]).children()[1]).children()[0]).html();
@@ -506,16 +510,16 @@ $('button#view-instructions, button#close-instructions').on('click', function() 
 });
 
 // For web demo, draw data from JSON file
-function startupInterface(is_mturk) {
+function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
     mturk = is_mturk;
     if (is_mturk) {
         $.ajax({
-            url: 'https://davidheineman.github.io/edit-type-annotator/data/input.json',
+            url: 'https://davidheineman.github.io/edit-type-annotator/' + data_file,
             dataType: 'json',
         }).done(displayAnnotatorMturk);
     } else {
         $.ajax({
-            url: 'data/input.json',
+            url: data_file,
             dataType: 'json',
         }).done(displayAnnotatorWebDemo);
     }
