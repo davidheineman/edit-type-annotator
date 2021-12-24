@@ -21,8 +21,8 @@ function displayAnnotatorMturk(data) {
 
     // Searches data list for the first entry with the same ID as the MTurk .csv file
     let s_idx = -1;
-    for (var entry in temp1) {
-        if (temp1[entry].ID == s) {
+    for (var entry in data) {
+        if (data[entry].ID == s) {
             s_idx = parseInt(entry);
             break;
         }
