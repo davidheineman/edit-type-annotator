@@ -105,6 +105,9 @@ function createGroup(df, container_id) {
 
         disableFormControl();
     }
+    // Remove all sets of || chars that could have been hard-coded in the split data
+    $(container_id).html($(container_id).html().replace(/\|\|/g, ''));
+
     makeSortable(container_id);
 }
 
@@ -154,6 +157,10 @@ function submitForm() {
 }
 
 function parseSentList(container_id) {
+
+    // We now want to include the sentence split || chars in the output. Add them back in.
+    $(container_id + ' .spt').html('||')
+
     let out = [];
     $(container_id + " .list-group-item").each(function(i) {
         let entry = [];
