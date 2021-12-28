@@ -72,7 +72,7 @@ function displayAnnotatorWebVisualizer(data) {
             $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
             $('button#submit').off('click');
             $('button#submit').on('click', function() {
-                window.location.href = '/?viz=' + data[s_idx+1].HIT_ID;
+                window.location.href = window.location.pathname + '?viz=' + data[s_idx+1].HIT_ID;
             });
         } else {
             $('button#submit').addClass('hidden-pg');
