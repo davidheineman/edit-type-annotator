@@ -39,8 +39,6 @@ function displayAnnotatorWebVisualizer(data) {
 
         $( '#curr' ).html(data[s_idx].HIT_ID);
         
-
-        // TODO
         // modify data to not contain sentence ratings
         var data_mod = data[s_idx];
         let del = [], par = [], spt = [];
@@ -64,20 +62,20 @@ function displayAnnotatorWebVisualizer(data) {
 
         // prevent changing numerical scores or dragging the sentences
         $("input").prop('disabled', true);
-        $(".btn-fix").css('display', 'none');
+        $(".btn-fix").addClass('hidden-pg');
         $('.header h4').css('margin-bottom', '1rem');
-        // $("#view-instructions").css('display', 'none');
-        $(".header .lead").html('Vizualizing HIT Data').css('font-size', '0.75rem').css('font-weight', '500').css('font-style', 'italic').css('margin-top', '0.5rem');
+        $(".header .lead").html('Viewing HIT Results').addClass('header-label');
+        $("#id-label").html('HIT ID: ');
 
         // change button to select next sentence
         if (s_idx < data.length - 2) {
-            $('#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
+            $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
             $('button#submit').off('click');
             $('button#submit').on('click', function() {
                 window.location.href = '/?viz=' + data[s_idx+1].HIT_ID;
             });
         } else {
-            $('#submit').css('display', 'none');
+            $('button#submit').addClass('hidden-pg');
         }
     } else {
         $( '#null-container' ).css('display', 'block');

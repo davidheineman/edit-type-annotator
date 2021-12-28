@@ -155,3 +155,9 @@ h1 {
 .caps{
     text-transform: capitalize;
 }
+.header-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
