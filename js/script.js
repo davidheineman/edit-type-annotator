@@ -57,7 +57,7 @@ function displayAnnotatorWebVisualizer(data) {
     }
 
     // everything else should render the same
-    generateView(data_mod, make_sortable=false);
+    generateView(data_mod, false);
 
     // paste the numerical scores
     pasteValues(del, '#del-list');
@@ -118,7 +118,6 @@ function generateView(sent, make_sortable=true) {
     $("#input-sent-below").html(sent.Original);
     $(".input-sent").html(sent.Original);
 
-
     createGroup(sent.Deletions, "#del-list", make_sortable);
     createGroup(sent.Paraphrases, "#par-list",make_sortable);
     createGroup(sent.Splittings, "#spt-list", make_sortable);
@@ -139,13 +138,20 @@ function createGroup(df, container_id, make_sortable) {
         // Write sentence
         let s = df[i][0];           // sentence
         let source = df[i][1];      // source
-        let contr = "<p>";          // DOM container for sent
+        let contr = "";             // container for sent
         
         // Write beginning of sentence
         contr = contr.concat(s.substring(0, df[i][1][1]));
 
+        // Sorts edits in order of first index
+        // This is just in case the input data is out of order
+        if (df[i].length > 2)
+            df[i] = df[i].slice(0, 2).concat(df[i].slice(2).sort(function(a, b) {
+                return a[1] - b[1];
+            }));
+
         // Show edits
-        for (let j = 2; j < df[i].length; j++) {
+        for (let j = 0; j < df[i].length; j++) {
             let edit = df[i][j];
 
             // Add the non-annotated part of the sentence
@@ -171,11 +177,9 @@ function createGroup(df, container_id, make_sortable) {
         // Write end of sentence
         contr = contr.concat(s.substring(df[i].at(-1)[2]));
 
-        contr = contr.concat("</p>");
-
         // Create col container for sentence
         let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div><button type="button" class="btn btn-outline-secondary btn-fix" data-dismiss="modal">Fix</button>'
-        let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + "</div><div class='col-10'>" + contr + "</div></div>";
+        let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + "</div><div class='col-10'><p>" + contr + "</p></div></div>";
         let li = $("<li class='list-group-item'></li>").append($(div));
 
         $(container_id).append(li);
@@ -289,6 +293,8 @@ function parseSentList(container_id) {
     return out;
 }
 
+var resetDiffFixer;
+
 function initFixButtons() {
     $('.btn-fix').on('click', function() {
         $('#fix-spans').modal('toggle');
@@ -305,12 +311,15 @@ function initFixButtons() {
             $('#fix-spans-body, #fix-spans-submit, #fix-spans-cancel').off();
             initFixCaps();
         });
-    
-        $('#fix-spans-cancel').on('click', function() {
+
+        // We make this a global variable so we can call it in initDiffFixer()
+        resetDiffFixer = function() {
             $('#fix-spans-body').off();
             $('#fix-spans-body')[0].innerHTML = p.html();
             initDiffFixer();
-        });
+        }
+    
+        $('#fix-spans-cancel').on('click', resetDiffFixer);
     });
 }
 
@@ -361,6 +370,7 @@ function initDiffFixer() {
         var parent = $(e.target).parent()[0];
         e.preventDefault();
         var curr = e.target;
+        var sent_orig = $('#fix-spans-body').text();
 
         // Recreate the span
         var el = document.createElement("span");
@@ -410,16 +420,6 @@ function initDiffFixer() {
                     start_idx = text1len;
                     end_idx = text1len + spanlen + range.startOffset;    
                 }
-                // // If we're moving to the left
-                // if ($(range.commonAncestorContainer.nextSibling).is(curr)) {
-                //     start_idx = range.startOffset;
-                //     end_idx = text1len + spanlen;
-                // } 
-                // // If we're moving to the right
-                // else if ($(range.commonAncestorContainer.previousSibling).is(curr)) {
-                //     start_idx = text1len;
-                //     end_idx = text1len + spanlen + range.startOffset;
-                // }
             } 
             // If we're moving within the sentence
             else if ($(range.commonAncestorContainer.parentElement).is(curr)) {
@@ -433,10 +433,6 @@ function initDiffFixer() {
                     end_idx = text1len + range.startOffset;
                 }
             }
-
-            // console.log(all.substring(0, start_idx));
-            // console.log(all.substring(start_idx, end_idx));
-            // console.log(all.substring(end_idx));
 
             // Create a new text element if it didn't exist before
             if (!$(curr)[0].previousSibling) {
@@ -465,7 +461,12 @@ function initDiffFixer() {
                 $(curr)[0].nextSibling.textContent = all.substring(end_idx);
             }
             $(curr)[0].innerText = all.substring(start_idx, end_idx);
-        })
+
+            // If the sentence text is modified due to some bug, reset the interface
+            if (sent_orig != $('#fix-spans-body').text()) {
+                resetDiffFixer();
+            };
+        });     
 
         $('#fix-spans-body').on("mouseup", function () {
             $('#fix-spans-body').off("mousemove");
