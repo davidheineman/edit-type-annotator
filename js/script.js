@@ -11,6 +11,11 @@ function displayAnnotatorWebDemo(data) {
         $( '#paragraph-container' ).css('display', 'block');
         $( '#curr' ).html(data[pgNum].ID);
         generateView(data[pgNum]);
+    } else if (urlParams.get('viz') != null) {
+        $.ajax({
+            url: 'data/preliminary_output.json',
+            dataType: 'json',
+        }).done(displayAnnotatorWebVisualizer);
     } else {
         $( '#null-container' ).css('display', 'block');
     }    
@@ -21,65 +26,61 @@ function displayAnnotatorWebVisualizer(data) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     var hitid = urlParams.get('viz');
-    if (hitid != null) {
-        $( '#paragraph-container' ).css('display', 'block');
-        
-        // Searches data list for the first entry with the same ID as the MTurk .csv file
-        let s_idx = -1;
-        for (var entry in data) {
-            if (data[entry].HIT_ID == hitid) {
-                s_idx = parseInt(entry);
-                break;
-            }
+    $( '#paragraph-container' ).css('display', 'block');
+    
+    // Searches data list for the first entry with the same ID as the MTurk .csv file
+    let s_idx = -1;
+    for (var entry in data) {
+        if (data[entry].HIT_ID == hitid) {
+            s_idx = parseInt(entry);
+            break;
         }
-        if (s_idx == -1) {
-            console.log("Error: ID not found");
-            return;
-        }
+    }
+    if (s_idx == -1) {
+        console.log("Error: ID not found");
+        return;
+    }
 
-        $( '#curr' ).html(data[s_idx].HIT_ID);
-        
-        // modify data to not contain sentence ratings
-        var data_mod = data[s_idx];
-        let del = [], par = [], spt = [];
-        for (var sent in data_mod.Deletions) {
-            del.push(data_mod.Deletions[sent].shift());
-        }
-        for (var sent in data_mod.Paraphrases) {
-            par.push(data_mod.Paraphrases[sent].shift());
-        }
-        for (var sent in data_mod.Splittings) {
-            spt.push(data_mod.Splittings[sent].shift());
-        }
+    $( '#curr' ).html(data[s_idx].HIT_ID);
+    
+    // modify data to not contain sentence ratings
+    var data_mod = data[s_idx];
+    let del = [], par = [], spt = [];
+    for (var sent in data_mod.Deletions) {
+        del.push(data_mod.Deletions[sent].shift());
+    }
+    for (var sent in data_mod.Paraphrases) {
+        par.push(data_mod.Paraphrases[sent].shift());
+    }
+    for (var sent in data_mod.Splittings) {
+        spt.push(data_mod.Splittings[sent].shift());
+    }
 
-        // everything else should render the same
-        generateView(data_mod);
+    // everything else should render the same
+    generateView(data_mod, make_sortable=false);
 
-        // paste the numerical scores
-        pasteValues(del, '#del-list');
-        pasteValues(par, '#par-list');
-        pasteValues(spt, '#spt-list');
+    // paste the numerical scores
+    pasteValues(del, '#del-list');
+    pasteValues(par, '#par-list');
+    pasteValues(spt, '#spt-list');
 
-        // prevent changing numerical scores or dragging the sentences
-        $("input").prop('disabled', true);
-        $(".btn-fix").addClass('hidden-pg');
-        $('.header h4').css('margin-bottom', '1rem');
-        $(".header .lead").html('Viewing HIT Results').addClass('header-label');
-        $("#id-label").html('HIT ID: ');
+    // prevent changing numerical scores or dragging the sentences
+    $("input").prop('disabled', true);
+    $(".btn-fix").addClass('hidden-pg');
+    $('.header h4').css('margin-bottom', '1rem');
+    $(".header .lead").html('Viewing HIT Results').addClass('header-label');
+    $("#id-label").html('HIT ID: ');
 
-        // change button to select next sentence
-        if (s_idx < data.length - 2) {
-            $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
-            $('button#submit').off('click');
-            $('button#submit').on('click', function() {
-                window.location.href = window.location.pathname + '?viz=' + data[s_idx+1].HIT_ID;
-            });
-        } else {
-            $('button#submit').addClass('hidden-pg');
-        }
+    // change button to select next sentence
+    if (s_idx < data.length - 2) {
+        $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
+        $('button#submit').off('click');
+        $('button#submit').on('click', function() {
+            window.location.href = window.location.pathname + '?viz=' + data[s_idx+1].HIT_ID;
+        });
     } else {
-        $( '#null-container' ).css('display', 'block');
-    }    
+        $('button#submit').addClass('hidden-pg');
+    }
 }
 
 function pasteValues(scores, container_id) {
@@ -112,15 +113,15 @@ function displayAnnotatorMturk(data) {
 }
 
 
-function generateView(sent) {
+function generateView(sent, make_sortable=true) {
     $("#input-sent-above").html(sent.Original);
     $("#input-sent-below").html(sent.Original);
     $(".input-sent").html(sent.Original);
 
 
-    createGroup(sent.Deletions, "#del-list");
-    createGroup(sent.Paraphrases, "#par-list");
-    createGroup(sent.Splittings, "#spt-list");
+    createGroup(sent.Deletions, "#del-list", make_sortable);
+    createGroup(sent.Paraphrases, "#par-list",make_sortable);
+    createGroup(sent.Splittings, "#spt-list", make_sortable);
 
     initFixButtons();
     initFixCaps();
@@ -133,7 +134,7 @@ function makeSortable(container_id) {
     });
 }
 
-function createGroup(df, container_id) {
+function createGroup(df, container_id, make_sortable) {
     for (let i = 0; i < df.length; i++) {
         // Write sentence
         let s = df[i][0];           // sentence
@@ -184,7 +185,9 @@ function createGroup(df, container_id) {
     // Remove all sets of || chars that could have been hard-coded in the split data
     $(container_id).html($(container_id).html().replace(/\|\|/g, ''));
 
-    makeSortable(container_id);
+    if(make_sortable) {
+        makeSortable(container_id);
+    }
 }
 
 function disableFormControl() {
@@ -615,15 +618,10 @@ function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
             dataType: 'json',
         }).done(displayAnnotatorMturk);
     } else {
-        // $.ajax({
-        //     url: data_file,
-        //     dataType: 'json',
-        // }).done(displayAnnotatorWebDemo);
-
         $.ajax({
-            url: 'data/preliminary_output.json',
+            url: data_file,
             dataType: 'json',
-        }).done(displayAnnotatorWebVisualizer);
+        }).done(displayAnnotatorWebDemo);        
     }
 }
 
