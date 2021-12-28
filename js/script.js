@@ -4,6 +4,8 @@ function displayAnnotatorWebDemo(data) {
     // For web demo, draw ID from URL
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+
+    // Starts interface
     var pgNum = parseInt(urlParams.get('s'));
     if (!Object.is(pgNum, NaN) && pgNum >= 0 && pgNum < data.length) {
         $( '#paragraph-container' ).css('display', 'block');
@@ -11,7 +13,83 @@ function displayAnnotatorWebDemo(data) {
         generateView(data[pgNum]);
     } else {
         $( '#null-container' ).css('display', 'block');
-    }
+    }    
+}
+
+function displayAnnotatorWebVisualizer(data) {
+    // Allows for visualizing HIT data
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var hitid = urlParams.get('viz');
+    if (hitid != null) {
+        $( '#paragraph-container' ).css('display', 'block');
+        
+        // Searches data list for the first entry with the same ID as the MTurk .csv file
+        let s_idx = -1;
+        for (var entry in data) {
+            if (data[entry].HIT_ID == hitid) {
+                s_idx = parseInt(entry);
+                break;
+            }
+        }
+        if (s_idx == -1) {
+            console.log("Error: ID not found");
+            return;
+        }
+
+        $( '#curr' ).html(data[s_idx].HIT_ID);
+        
+
+        // TODO
+        // modify data to not contain sentence ratings
+        var data_mod = data[s_idx];
+        let del = [], par = [], spt = [];
+        for (var sent in data_mod.Deletions) {
+            del.push(data_mod.Deletions[sent].shift());
+        }
+        for (var sent in data_mod.Paraphrases) {
+            par.push(data_mod.Paraphrases[sent].shift());
+        }
+        for (var sent in data_mod.Splittings) {
+            spt.push(data_mod.Splittings[sent].shift());
+        }
+
+        // everything else should render the same
+        generateView(data_mod);
+
+        // paste the numerical scores
+        pasteValues(del, '#del-list');
+        pasteValues(par, '#par-list');
+        pasteValues(spt, '#spt-list');
+
+        // prevent changing numerical scores or dragging the sentences
+        $("input").prop('disabled', true);
+        $(".btn-fix").css('display', 'none');
+        $('.header h4').css('margin-bottom', '1rem');
+        // $("#view-instructions").css('display', 'none');
+        $(".header .lead").html('Vizualizing HIT Data').css('font-size', '0.75rem').css('font-weight', '500').css('font-style', 'italic').css('margin-top', '0.5rem');
+
+        // change button to select next sentence
+        if (s_idx < data.length - 2) {
+            $('#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
+            $('button#submit').off('click');
+            $('button#submit').on('click', function() {
+                window.location.href = '/?viz=' + data[s_idx+1].HIT_ID;
+            });
+        } else {
+            $('#submit').css('display', 'none');
+        }
+    } else {
+        $( '#null-container' ).css('display', 'block');
+    }    
+}
+
+function pasteValues(scores, container_id) {
+    let iter = 0;
+    $(container_id + ' input').each(function() {
+        this.value = scores[iter];
+        iter++;
+    });
 }
 
 function displayAnnotatorMturk(data) {
@@ -539,12 +617,16 @@ function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
             dataType: 'json',
         }).done(displayAnnotatorMturk);
     } else {
+        // $.ajax({
+        //     url: data_file,
+        //     dataType: 'json',
+        // }).done(displayAnnotatorWebDemo);
+
         $.ajax({
-            url: data_file,
+            url: 'data/preliminary_output.json',
             dataType: 'json',
-        }).done(displayAnnotatorWebDemo);
+        }).done(displayAnnotatorWebVisualizer);
     }
 }
 
 var mturk;
-
