@@ -8,6 +8,18 @@ In `script.js`, it calls the content in `data/input.json` for the annotator to u
 
 **NEW**: `Script.js` now supports specifying the input file. It will use `data/draft_input.json` as it's default, but just pass a string argument to the `startupInterface()` function at the bottom of `index.html` to use a different file. Should look like: `startupInterface(is_mturk=true, data_path='data/path-to-data.json')`
 
+#### Options
+See the last second to last line of `index.html` for options when using the interface:
+```
+  <script>modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false)</script>
+```
+- `enable_fix_spans`: Enables span fixer.
+- `make_sortable`: Allows moving the sentences within the same category.
+- `enable_sorting_between_categories`: Allows moving sentences between categories.
+
+#### Output Vizualizer
+To vizualize the results, add a field `HIT_ID` to each output. Then, visit `/?viz=[HIT_ID]` to view. See `data/preliminary_output.json` for an of the data or [here](https://davidheineman.github.io/edit-type-annotator/?viz=36TFCYNS45PNLX0Q35IQ2HPZBJBXHJ) for a demo.
+
 #### Format of `input.json`
 It contains a list of sentences, each with an ID, the original sentence, and any given edits. This interface also optionally allows for categorizing sentences into types of edits.
 ```

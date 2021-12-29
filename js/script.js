@@ -593,13 +593,8 @@ function downloadData(data) {
         $('#mturk-hit').val(JSON.stringify(data));
     } else {
         // Download JSON data
-        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-        var downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "output.json");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
+        var raw_data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+        $('<a></a>').attr('href', raw_data).attr('download', 'output.json')[0].click();
     }
 }
 
