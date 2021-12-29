@@ -57,7 +57,8 @@ function displayAnnotatorWebVisualizer(data) {
     }
 
     // everything else should render the same
-    generateView(data_mod, false);
+    make_sortable = false;
+    generateView(data_mod);
 
     // paste the numerical scores
     pasteValues(del, '#del-list');
@@ -113,27 +114,36 @@ function displayAnnotatorMturk(data) {
 }
 
 
-function generateView(sent, make_sortable=true) {
+function generateView(sent) {
     $("#input-sent-above").html(sent.Original);
     $("#input-sent-below").html(sent.Original);
     $(".input-sent").html(sent.Original);
 
-    createGroup(sent.Deletions, "#del-list", make_sortable);
-    createGroup(sent.Paraphrases, "#par-list",make_sortable);
-    createGroup(sent.Splittings, "#spt-list", make_sortable);
-
-    initFixButtons();
+    createGroup(sent.Deletions, "#del-list");
+    createGroup(sent.Paraphrases, "#par-list");
+    createGroup(sent.Splittings, "#spt-list");
+ 
+    if (enable_fix_spans) {
+        initFixButtons();
+    }
     initFixCaps();
 }
 
 function makeSortable(container_id) {
-    new Sortable($(container_id)[0], {
-        group: 'shared',
-        animation: 150
-    });
+    if (enable_sorting_between_categories) {
+        $('#li-categorization').removeClass('li-hide');
+        new Sortable($(container_id)[0], {
+            group: 'shared',
+            animation: 150
+        });
+    } else {
+        new Sortable($(container_id)[0], {
+            animation: 150
+        });
+    }
 }
 
-function createGroup(df, container_id, make_sortable) {
+function createGroup(df, container_id) {
     for (let i = 0; i < df.length; i++) {
         // Write sentence
         let s = df[i][0];           // sentence
@@ -178,7 +188,7 @@ function createGroup(df, container_id, make_sortable) {
         contr = contr.concat(s.substring(df[i].at(-1)[2]));
 
         // Create col container for sentence
-        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div><button type="button" class="btn btn-outline-secondary btn-fix" data-dismiss="modal">Fix</button>'
+        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div><button type="button" class="btn btn-outline-secondary btn-fix btn-hide" data-dismiss="modal">Fix</button>'
         let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + "</div><div class='col-10'><p>" + contr + "</p></div></div>";
         let li = $("<li class='list-group-item'></li>").append($(div));
 
@@ -296,6 +306,10 @@ function parseSentList(container_id) {
 var resetDiffFixer;
 
 function initFixButtons() {
+    $('#li-fix').removeClass('li-hide')
+
+    $('.btn-fix').removeClass('btn-hide');
+
     $('.btn-fix').on('click', function() {
         $('#fix-spans').modal('toggle');
 
@@ -610,6 +624,13 @@ $('button#view-instructions, button#close-instructions').on('click', function() 
     $('#instructions').modal('toggle');
 });
 
+// Allow modifying the options of the interface within the HTML file
+function modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false) {
+    enable_fix_spans = enable_fix_spans;
+    make_sortable = make_sortable;
+    enable_sorting_between_categories = enable_sorting_between_categories;
+}
+
 // For web demo, draw data from JSON file
 function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
     mturk = is_mturk;
@@ -626,4 +647,8 @@ function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
     }
 }
 
-var mturk;
+// Default options
+var mturk = false;
+var enable_fix_spans = false;
+var make_sortable = true;
+var enable_sorting_between_categories = false;

@@ -4,13 +4,7 @@
 h1 {
     margin-bottom: 16px;
 }
-.hidden-pg {
-    display:none;
-}
-.hidden-edit {
-    display: none;
-}
-#paragraph-container, #null-container {
+#paragraph-container, #null-container, .btn-hide, .li-hide, .hidden-edit, .hidden-pg  {
     display:none;
 }
 .del:before {
