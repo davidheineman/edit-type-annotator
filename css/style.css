@@ -20,6 +20,13 @@ h1 {
     content: "||";
     color: black;
     margin-right: 2px;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+.spt {
+    font-size: 1px;
+    letter-spacing: -1px;
+    color: transparent;
 }
 .cwi-box h4 {
     margin-top: 8px;
