@@ -290,7 +290,7 @@ function parseSentList(container_id) {
         let entry = [];
 
         // get value of input
-        if (!enable_rating)
+        if (enable_rating)
             entry.push(parseInt($($($($(this).children()[0]).children()[0]).children()[0]).val()));
 
         // get sentence
