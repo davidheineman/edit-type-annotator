@@ -161,7 +161,7 @@ function createGroup(df, container_id) {
             }));
 
         // Show edits
-        for (let j = 0; j < df[i].length; j++) {
+        for (let j = 2; j < df[i].length; j++) {
             let edit = df[i][j];
 
             // Add the non-annotated part of the sentence
@@ -177,6 +177,8 @@ function createGroup(df, container_id) {
                 edit_span = edit_span.concat(' class="par">');
             } else if (edit[0] == 2) {
                 edit_span = edit_span.concat(' class="spt">');
+            } else {
+                console.error("Error: Unknown edit type: " + edit[0] + '\n \t Full edit: ' + edit);
             }
             edit_span = edit_span.concat(s.substring(edit[1], edit[2]));
             edit_span = edit_span.concat('</span>');
@@ -303,37 +305,33 @@ function parseSentList(container_id) {
     return out;
 }
 
-var resetDiffFixer;
+var sent_to_fix;
 
 function initFixButtons() {
-    $('#li-fix').removeClass('li-hide')
-
+    // Unhide fix buttons and instructions
+    $('#li-fix').removeClass('li-hide');
     $('.btn-fix').removeClass('btn-hide');
 
     $('.btn-fix').on('click', function() {
+        // Show diff fixing interface
         $('#fix-spans').modal('toggle');
 
         // Get the paragraph to be fixed
-        var p = $($($(this)[0]).parent()[0].nextSibling.childNodes[0]);
+        sent_to_fix = $($($(this)[0]).parent()[0].nextSibling.childNodes[0]);
+        initDiffFixer(sent_to_fix.html());
 
-        $('#fix-spans-body')[0].innerHTML = p.html();
-        initDiffFixer();
-
+        // Add ability to save edited diffs
         $('#fix-spans-submit').on('click', function() {
-            p[0].innerHTML = $('#fix-spans-body').html();
+            sent_to_fix.html($('#fix-spans-body').html());
             $('#fix-spans').modal('toggle');
             $('#fix-spans-body, #fix-spans-submit, #fix-spans-cancel').off();
             initFixCaps();
         });
 
-        // We make this a global variable so we can call it in initDiffFixer()
-        resetDiffFixer = function() {
-            $('#fix-spans-body').off();
-            $('#fix-spans-body')[0].innerHTML = p.html();
-            initDiffFixer();
-        }
-    
-        $('#fix-spans-cancel').on('click', resetDiffFixer);
+        // Add ability to reset diff fixer
+        $('#fix-spans-cancel').on('click', function() {
+            initDiffFixer(sent_to_fix.html())
+        });
     });
 }
 
@@ -353,7 +351,11 @@ function fixCaps(e) {
 }
 
 // !!! DIFF FIXER CODE !!!!
-function initDiffFixer() {
+function initDiffFixer(text) {
+    // Reset the diff fixer and add the text
+    $('#fix-spans-body').html(text);
+    $('#fix-spans-body').off();
+
     // Add parahrase on highlight
     $('#fix-spans-body').on("mouseup", function (e) {
         var sel = window.getSelection()
@@ -478,7 +480,7 @@ function initDiffFixer() {
 
             // If the sentence text is modified due to some bug, reset the interface
             if (sent_orig != $('#fix-spans-body').text()) {
-                resetDiffFixer();
+                initDiffFixer(sent_to_fix.html());
             };
         });     
 
