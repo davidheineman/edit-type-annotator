@@ -37,7 +37,7 @@ function displayAnnotatorWebVisualizer(data) {
         }
     }
     if (s_idx == -1) {
-        console.log("Error: ID not found");
+        console.error("Error: ID not found");
         return;
     }
 
@@ -106,7 +106,7 @@ function displayAnnotatorMturk(data) {
         }
     }
     if (s_idx == -1) {
-        console.log("Error: ID not found");
+        console.error("Error: ID not found");
         return;
     }
 
@@ -220,7 +220,7 @@ function disableFormControl() {
                 $($(this).parent().find('.form-control')).addClass('is-invalid');
             } else if (nv < 0) {
                 // Don't need warning pop-up because less likely
-                // console.log('Negative number!')
+                // console.error('Negative number!')
             } else {
                 $($(this).parent().find('.form-control')).removeClass('is-invalid');
             }
@@ -611,9 +611,8 @@ $('button#submit').on('click', function() {
     })
 
     // If the entry is valid, submit the form
-    if (valid) {
+    if (valid)
         submitForm();
-    }
 });
  
 // Enable toggling of instructions modal using buttons
