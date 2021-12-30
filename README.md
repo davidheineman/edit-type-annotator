@@ -16,6 +16,7 @@ See the last second to last line of `index.html` for options when using the inte
 - `enable_fix_spans`: Enables span fixer.
 - `make_sortable`: Allows moving the sentences within the same category.
 - `enable_sorting_between_categories`: Allows moving sentences between categories.
+- `enable_rating`: Enables rating sentences.
 
 #### Output Vizualizer
 To vizualize the results, add a field `HIT_ID` to each output. Then, visit `/?viz=[HIT_ID]` to view. See `data/preliminary_output.json` for an of the data or [here](https://davidheineman.github.io/edit-type-annotator/?viz=36TFCYNS45PNLX0Q35IQ2HPZBJBXHJ) for a demo.

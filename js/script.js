@@ -10,6 +10,21 @@ function displayAnnotatorWebDemo(data) {
     if (!Object.is(pgNum, NaN) && pgNum >= 0 && pgNum < data.length) {
         $( '#paragraph-container' ).css('display', 'block');
         $( '#curr' ).html(data[pgNum].ID);
+
+        // Change the mode, if applicable
+        var mode = urlParams.get('mode');
+        if (mode == 'span-fix') {
+            enable_fix_spans = true;
+            make_sortable = false;
+            enable_sorting_between_categories = false;
+            enable_rating = false;
+        } else if (mode == 'category-fix') {
+            enable_fix_spans = false;
+            make_sortable = true;
+            enable_sorting_between_categories = true;
+            enable_rating = false;
+        }
+
         generateView(data[pgNum]);
     } else if (urlParams.get('viz') != null) {
         $.ajax({
@@ -190,9 +205,23 @@ function createGroup(df, container_id) {
         contr = contr.concat(s.substring(df[i].at(-1)[2]));
 
         // Create col container for sentence
-        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div><button type="button" class="btn btn-outline-secondary btn-fix btn-hide" data-dismiss="modal">Fix</button>'
-        let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + "</div><div class='col-10'><p>" + contr + "</p></div></div>";
+        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div>'
+        let fix_button = '<button type="button" class="btn btn-outline-secondary btn-fix btn-hide" data-dismiss="modal">Fix</button>'
+        let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + fix_button + "</div><div class='col-10'><p>" + contr + "</p></div></div>";
         let li = $("<li class='list-group-item'></li>").append($(div));
+
+        // Override if we've disabled rating
+        if (!enable_rating) {
+            if (enable_fix_spans) {
+                li = $("<li class='list-group-item'>" + "<div class='row' source='" + source + "'><div class='col-2'>" + fix_button + "</div><div class='col-10'><p>" + contr + "</p></div></div>" + "</li>");
+            } else {
+                li = $("<li class='list-group-item li-no-ratings'><div class='row' source='" + source + "'><div></div><div><p>" + contr + "</p></div></div></li>");
+                $('.alert').addClass('alert-no-ratings');
+            }
+        } else {
+            $('#li-rank').removeClass('li-hide');
+            $('#li-rate').removeClass('li-hide');
+        }
 
         $(container_id).append(li);
 
@@ -201,7 +230,7 @@ function createGroup(df, container_id) {
     // Remove all sets of || chars that could have been hard-coded in the split data
     $(container_id).html($(container_id).html().replace(/\|\|/g, ''));
 
-    if(make_sortable) {
+    if (make_sortable) {
         makeSortable(container_id);
     }
 }
@@ -261,7 +290,8 @@ function parseSentList(container_id) {
         let entry = [];
 
         // get value of input
-        entry.push(parseInt($($($($(this).children()[0]).children()[0]).children()[0]).val()));
+        if (!enable_rating)
+            entry.push(parseInt($($($($(this).children()[0]).children()[0]).children()[0]).val()));
 
         // get sentence
         entry.push($($($($(this).children()[0]).children()[1]).children()[0]).text());
@@ -611,7 +641,7 @@ $('button#submit').on('click', function() {
     })
 
     // If the entry is valid, submit the form
-    if (valid)
+    if (valid || !enable_rating)
         submitForm();
 });
  
@@ -621,10 +651,11 @@ $('button#view-instructions, button#close-instructions').on('click', function() 
 });
 
 // Allow modifying the options of the interface within the HTML file
-function modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false) {
+function modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false, enable_rating=true) {
     enable_fix_spans = enable_fix_spans;
     make_sortable = make_sortable;
     enable_sorting_between_categories = enable_sorting_between_categories;
+    enable_rating = enable_rating;
 }
 
 // For web demo, draw data from JSON file
@@ -648,3 +679,4 @@ var mturk = false;
 var enable_fix_spans = false;
 var make_sortable = true;
 var enable_sorting_between_categories = false;
+var enable_rating = true;

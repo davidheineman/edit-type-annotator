@@ -162,3 +162,10 @@ h1 {
     font-style: italic;
     margin-top: 0.5rem;
 }
+.alert-no-ratings {
+    padding: 16px;
+}
+.li-no-ratings {
+    margin-left: 16px;
+    margin-right: 16px;
+}

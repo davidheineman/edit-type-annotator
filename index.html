@@ -69,10 +69,11 @@
                     <div class="modal-body">
                         <p>You are given <span class='ih'>a complex sentence</span>. Perform these tasks:</p>
                         <ul>
-                            <li>Rank sentences based on how well they <span class='ih'>simplify</span> they original sentence</li>
-                            <li>Rate senteces based on how well they preseve <span class='ih'>meaning</span> and <span class='ih'>fluency</span>.</li>
-                            <li class='li-hide' id='#li-categorization'>Fix categorization of sentences</li>
-                            <li class='li-hide' id='#li-fix'>Fix errors in our generated sentence changes</li>
+                            <!-- <li class='li-hide' id='li-rank'>Rank sentences based on how well they <span class='ih'>simplify</span> they original sentence</li> -->
+                            <!-- <li class='li-hide' id='li-rate'>Rate senteces based on how well they preseve <span class='ih'>meaning</span> and <span class='ih'>fluency</span>.</li> -->
+                            <li class='li-hide' id='li-rate'>Rate senteces based on how well they <span class='ih'>simplify</span> they original sentence and preseve <span class='ih'>meaning</span> and <span class='ih'>fluency</span>.</li>
+                            <li class='li-hide' id='li-categorization'>Fix categorization of sentences</li>
+                            <li class='li-hide' id='li-fix'>Fix errors in our generated sentence changes</li>
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -114,7 +115,7 @@
     <!-- Sortable code -->
     <script src="https://sortablejs.github.io/Sortable/Sortable.js"></script>
     <script src="js/script.js"></script> <!-- https://davidheineman.github.io/edit-type-annotator/ -->
-    <script>modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false)</script>
+    <script>modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false, enable_rating=true)</script>
     <script>startupInterface(is_mturk=false, data_file='data/practice_examples.json');</script>
 
     <!-- </crowd-form> -->
