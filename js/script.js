@@ -353,6 +353,7 @@ function initFixButtons() {
         // Add ability to save edited diffs
         $('#fix-spans-submit').on('click', function() {
             sent_to_fix.html($('#fix-spans-body').html());
+            resetAddButtons();
             $('#fix-spans').modal('toggle');
             $('#fix-spans-body, #fix-spans-submit, #fix-spans-cancel').off();
             initFixCaps();
@@ -362,7 +363,107 @@ function initFixButtons() {
         $('#fix-spans-cancel').on('click', function() {
             initDiffFixer(sent_to_fix.html())
         });
+
+        // Add ability to add del and spt spans
+        initAddButtons()
+        
     });
+}
+
+var span_adder_activated = false;
+var span_being_fixed = '';
+
+function initAddButtons () {
+    // when clicking buttons
+    // make the button selected and create listener for clicking the text box
+    // if somewhere in the text box is clicked
+    // add the corresponding span
+    // deselect the button
+    // if the button is pressed again
+    // deselect the button
+    // if somewhere outside the text box & button is clicked
+    // do nothing
+
+    $('#fix-spans-add-del, #fix-spans-add-spt').on('click', function(e) {
+        $(this).addClass('active')
+
+        span_adder_activated = true
+        span_being_fixed = e.currentTarget.id.substr(14)
+
+        $('#fix-spans-body').on('click', function(curr) {
+            if (span_adder_activated) {
+                // Recreate the span
+                var el = document.createElement("span");
+                el.className = span_being_fixed
+
+                // Save the location of the original sentence the span was saved in
+                var parent = $(curr.target).parent()[0];
+                var range, textRange, x = curr.clientX, y = curr.clientY;
+                
+                // Try the standards-based way first
+                if (document.caretPositionFromPoint) {
+                    var pos = document.caretPositionFromPoint(x, y);
+                    range = document.createRange();
+                    range.setStart(pos.offsetNode, pos.offset);
+                    range.collapse();
+                }
+                // Next, the WebKit way
+                else if (document.caretRangeFromPoint) {
+                    range = document.caretRangeFromPoint(x, y);
+                }
+                // Finally, the IE way
+                else if (document.body.createTextRange) {
+                    textRange = document.body.createTextRange();
+                    textRange.moveToPoint(x, y);
+                    var spanId = "temp_" + ("" + Math.random()).slice(2);
+                    textRange.pasteHTML('<span id="' + spanId + '">&nbsp;</span>');
+                    var span = document.getElementById(spanId);
+                    //place the new pin
+                    span.parentNode.replaceChild(el, span);
+                }
+
+                // Place the new span
+                if (range) {
+                    range.insertNode(el);
+                }
+
+                // Fix broken text spans
+                el.previousSibling.parentNode.normalize();
+
+                // Check if the new span is inside the paragraph, if not, restore the original span
+                // var parent_new = $(el).parent()[0];
+                // if (!$(parent).is(parent_new)) {
+                //     // Restore the original span
+                //     $(orig_target).removeClass("hidden-edit");
+                //     $(el).remove();
+                // } else {
+                //     // Remove the original span
+                //     $(orig_target).remove();
+
+                //     // for each hidden edit, remove and normalize the parent
+                //     $(".hidden-edit").each(function (i, elm) {
+                //         var temp = elm.parentNode;
+                //         $(elm).remove();
+                //         temp.normalize();
+                //     });
+                // } 
+
+                parent.normalize();
+                resetAddButtons()
+            }
+        })
+
+        $(this).on('click', function() {
+            resetAddButtons()
+        })
+    })
+}
+
+function resetAddButtons (button) {
+    $('#fix-spans-add-del, #fix-spans-add-spt').removeClass('active')
+    span_adder_activated = false
+    $('#fix-spans-add-del, #fix-spans-add-spt').off('click')
+    initAddButtons()
 }
 
 function initFixCaps() {

@@ -96,8 +96,14 @@
                     </div>
                     <div class="modal-body span-modal-body" id='fix-spans-body'></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id='fix-spans-cancel'>Reset</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id='fix-spans-submit'>Save</button>
+                        <div class="modal-footer-left">
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id='fix-spans-add-del'>Add <span class='del'></span></button>
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id='fix-spans-add-spt'>Add <span class='spt'></span></button>
+                        </div>
+                        <div class="modal-footer-right">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id='fix-spans-cancel'>Reset</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id='fix-spans-submit'>Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,8 +121,8 @@
     <!-- Sortable code -->
     <script src="https://sortablejs.github.io/Sortable/Sortable.js"></script>
     <script src="js/script.js"></script> <!-- https://davidheineman.github.io/edit-type-annotator/ -->
-    <script>modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false, enable_rating=true)</script>
-    <script>startupInterface(is_mturk=false, data_file='data/practice_examples.json');</script>
+    <script>modifyIterfaceOptions(enable_fix_spans=true, make_sortable=false, enable_sorting_between_categories=false, enable_rating=false)</script>
+    <script>startupInterface(is_mturk=false, data_file='data/first_batch_span_fixing.json');</script>
 
     <!-- </crowd-form> -->
 </html>
