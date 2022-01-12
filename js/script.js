@@ -175,6 +175,32 @@ function createGroup(df, container_id) {
                 return a[1] - b[1];
             }));
 
+        // Check to make there's no overlapping edits
+        // This repeition error occured in about 1-2 sentences per HIT
+        let j = 2
+        while (j < df[i].length-1) {
+            let edit = df[i][j]
+
+            // If the current edit is par
+            if (edit[0] == 1) {
+                let next = df[i][j + 1]
+
+                // If the next edit is del or spt and it occurs before the current par ends
+                if (next[0] != 1 && next[1] < edit[2]) {
+                    let new_end_idx = df[i][j][2];
+                    df[i][j][2] = next[2];
+                    df[i].splice(j+2, 0, [1, next[2]+1, new_end_idx]);
+                }
+
+                // If the next edit is par and it's start occurs before the current par ends
+                else if (next[0] == 1 && next[1] < edit[2]) {
+                    console.error('Weird paraphrase within paraphrase error occured')
+                    df[i].splice(df[i].indexOf(next), 1);
+                    df[i][j][2] = Math.max(edit[2], next[2]);
+                } else j++
+            } else j++
+        }
+
         // Show edits
         for (let j = 2; j < df[i].length; j++) {
             let edit = df[i][j];
@@ -303,7 +329,9 @@ function parseSentList(container_id) {
         let html = $($($($(this).children()[0]).children()[1]).children()[0]).html();
 
         // Parse edits from sentences
+        // This should be fixed this is a terrible way to do this...
         let idx = 0;
+        $('.caps').removeClass('caps')
         while (idx < html.length) {
             let next_substring = html.substring(idx, idx + 18);
             if (next_substring == '<span class="del">') {
@@ -374,16 +402,6 @@ var span_adder_activated = false;
 var span_being_fixed = '';
 
 function initAddButtons () {
-    // when clicking buttons
-    // make the button selected and create listener for clicking the text box
-    // if somewhere in the text box is clicked
-    // add the corresponding span
-    // deselect the button
-    // if the button is pressed again
-    // deselect the button
-    // if somewhere outside the text box & button is clicked
-    // do nothing
-
     $('#fix-spans-add-del, #fix-spans-add-spt').on('click', function(e) {
         $(this).addClass('active')
 
