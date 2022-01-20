@@ -326,12 +326,12 @@ function parseSentList(container_id) {
         entry.push($($(this).children()[0])[0].attributes[1].value);
 
         // get complete html
+        $('.caps').removeClass('caps')
         let html = $($($($(this).children()[0]).children()[1]).children()[0]).html();
 
         // Parse edits from sentences
         // This should be fixed this is a terrible way to do this...
         let idx = 0;
-        $('.caps').removeClass('caps')
         while (idx < html.length) {
             let next_substring = html.substring(idx, idx + 18);
             if (next_substring == '<span class="del">') {
