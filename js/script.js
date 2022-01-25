@@ -485,9 +485,11 @@ function resetAddButtons (button) {
 }
 
 function initFixCaps() {
-    $('.par').each(function() {
-        fixCaps(this);
-    });
+    if (fixCapsEnabled) {
+        $('.par').each(function() {
+            fixCaps(this);
+        });
+    }
 }
 
 function fixCaps(e) {
@@ -799,3 +801,4 @@ var enable_fix_spans = false;
 var make_sortable = true;
 var enable_sorting_between_categories = false;
 var enable_rating = true;
+var fixCapsEnabled = false;
