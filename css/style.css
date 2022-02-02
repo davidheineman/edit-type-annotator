@@ -172,3 +172,12 @@ h1 {
 .modal-footer {
     justify-content: space-between;
 }
+.dropdown {
+    display: contents;
+}
+.dropdown-toggle {
+    margin-left: 16px;
+}
+.btn-outline-secondary {
+    color: #3c4246;
+}

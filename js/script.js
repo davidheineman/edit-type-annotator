@@ -2,8 +2,7 @@
 // https://[url]/index.html?s=0 => ID 0 in input.json
 function displayAnnotatorWebDemo(data) {
     // For web demo, draw ID from URL
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+    const urlParams = new URLSearchParams(window.location.search);
 
     // Starts interface
     var pgNum = parseInt(urlParams.get('s'));
@@ -26,11 +25,6 @@ function displayAnnotatorWebDemo(data) {
         }
 
         generateView(data[pgNum]);
-    } else if (urlParams.get('viz') != null) {
-        $.ajax({
-            url: 'data/preliminary_output.json',
-            dataType: 'json',
-        }).done(displayAnnotatorWebVisualizer);
     } else {
         $( '#null-container' ).css('display', 'block');
     }    
@@ -38,47 +32,53 @@ function displayAnnotatorWebDemo(data) {
 
 function displayAnnotatorWebVisualizer(data) {
     // Allows for visualizing HIT data
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+    const urlParams = new URLSearchParams(window.location.search);
     var hitid = urlParams.get('viz');
-    $( '#paragraph-container' ).css('display', 'block');
     
     // Searches data list for the first entry with the same ID as the MTurk .csv file
     let s_idx = -1;
     for (var entry in data) {
-        if (data[entry].HIT_ID == hitid) {
+        if (data[entry].ID == hitid) {
             s_idx = parseInt(entry);
+            $( '#paragraph-container' ).css('display', 'block');
             break;
         }
     }
     if (s_idx == -1) {
         console.error("Error: ID not found");
+        window.location.href = '/?viz=' + data[0].ID + '&data=' + urlParams.get('data');
         return;
     }
 
-    $( '#curr' ).html(data[s_idx].HIT_ID);
-    
     // modify data to not contain sentence ratings
     var data_mod = data[s_idx];
-    let del = [], par = [], spt = [];
-    for (var sent in data_mod.Deletions) {
-        del.push(data_mod.Deletions[sent].shift());
-    }
-    for (var sent in data_mod.Paraphrases) {
-        par.push(data_mod.Paraphrases[sent].shift());
-    }
-    for (var sent in data_mod.Splittings) {
-        spt.push(data_mod.Splittings[sent].shift());
-    }
+    // check if this is a string
+    if (urlParams.get('data').substr(-5, 5) == "final") {
+        let del = [], par = [], spt = [];
+        for (var sent in data_mod.Deletions) {
+            del.push(data_mod.Deletions[sent].shift());
+        }
+        for (var sent in data_mod.Paraphrases) {
+            par.push(data_mod.Paraphrases[sent].shift());
+        }
+        for (var sent in data_mod.Splittings) {
+            spt.push(data_mod.Splittings[sent].shift());
+        }
 
-    // everything else should render the same
-    make_sortable = false;
-    generateView(data_mod);
+        // everything else should render the same
+        make_sortable = false;
+        generateView(data_mod);
 
-    // paste the numerical scores
-    pasteValues(del, '#del-list');
-    pasteValues(par, '#par-list');
-    pasteValues(spt, '#spt-list');
+        // paste the numerical scores
+        pasteValues(del, '#del-list');
+        pasteValues(par, '#par-list');
+        pasteValues(spt, '#spt-list');
+    } else {
+        // Don't even display the score boxes
+        make_sortable = false;
+        enable_rating = false;
+        generateView(data_mod);
+    }
 
     // prevent changing numerical scores or dragging the sentences
     $("input").prop('disabled', true);
@@ -88,15 +88,66 @@ function displayAnnotatorWebVisualizer(data) {
     $("#id-label").html('HIT ID: ');
 
     // change button to select next sentence
-    if (s_idx < data.length - 2) {
-        $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
-        $('button#submit').off('click');
-        $('button#submit').on('click', function() {
-            window.location.href = window.location.pathname + '?viz=' + data[s_idx+1].HIT_ID;
-        });
-    } else {
-        $('button#submit').addClass('hidden-pg');
+    $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
+    $('button#submit').off('click');
+    $('button#submit').on('click', function() {
+        window.location.href = '/?viz=' + data[s_idx+1].ID + '&data=' + urlParams.get('data');
+    });
+
+    // Render dropdown box to select data
+    let dropDownMenu = $("<ul>", {
+        class: "dropdown-menu"
+    });
+    $.ajax({
+        url: 'data/_visible_data.txt',
+        async: false
+    }).done(function(data) {
+        for (const filename of data.split('\r\n')) {
+            let li = $("<li>").append($("<a>", {
+                class: "dropdown-item",
+                href: "/?viz=" + hitid + "&data=" + filename,
+                text: filename
+            }));
+            dropDownMenu.append(li);
+        }
+    });
+    $($('.header-label')[0]).after($("<div>", {
+        class: "dropdown",
+        id: "data-selector"
+    }));
+    $('#data-selector').append($("<button>", {
+        class: "btn btn-outline-secondary dropdown-toggle",
+        type: "button",
+        id: "dropdownMenuButton1",
+        "data-bs-toggle": "dropdown",
+        "aria-expanded": "false",
+        text: urlParams.get('data')
+    })).append(dropDownMenu);
+
+    // Render dropdown box to select HIT ID
+    let idDropDown = $("<ul>", {
+        class: "dropdown-menu"
+    });
+    for (const entry of data) {
+        let li = $("<li>").append($("<a>", {
+            class: "dropdown-item",
+            href: "/?viz=" + entry.ID + "&data=" + urlParams.get('data'),
+            text: entry.ID
+        }));
+        idDropDown.append(li);
     }
+    $( '#curr' ).html($("<div>", {
+        class: "dropdown",
+        id: "id-selector"
+    }));
+    $('#id-selector').append($("<button>", {
+        class: "btn btn-outline-secondary dropdown-toggle",
+        type: "button",
+        id: "dropdownMenuButtonID",
+        "data-bs-toggle": "dropdown",
+        "aria-expanded": "false",
+        text: data[s_idx].ID
+    })).append(idDropDown);
 }
 
 function pasteValues(scores, container_id) {
@@ -780,7 +831,7 @@ function modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enabl
 }
 
 // For web demo, draw data from JSON file
-function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
+function startupInterface(is_mturk=false, data_file='data/example_data.json') {
     mturk = is_mturk;
     if (is_mturk) {
         $.ajax({
@@ -788,10 +839,22 @@ function startupInterface(is_mturk=false, data_file='data/draft_input.json') {
             dataType: 'json',
         }).done(displayAnnotatorMturk);
     } else {
-        $.ajax({
-            url: data_file,
-            dataType: 'json',
-        }).done(displayAnnotatorWebDemo);        
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('viz') == null) {
+            $.ajax({
+                url: data_file,
+                dataType: 'json',
+            }).done(displayAnnotatorWebDemo); 
+            
+        } else {
+            let data_path = urlParams.get('data');
+            if (data_path != null) {
+                $.ajax({
+                    url: 'data/' + data_path + '.json',
+                    dataType: 'json',
+                }).done(displayAnnotatorWebVisualizer);
+            }
+        }     
     }
 }
 
