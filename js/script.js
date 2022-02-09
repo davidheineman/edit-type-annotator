@@ -46,7 +46,7 @@ function displayAnnotatorWebVisualizer(data) {
     }
     if (s_idx == -1) {
         console.error("Error: ID not found");
-        window.location.href = '/?viz=' + data[0].ID + '&data=' + urlParams.get('data');
+        window.location.href = '?viz=' + data[0].ID + '&data=' + urlParams.get('data');
         return;
     }
 
@@ -91,7 +91,7 @@ function displayAnnotatorWebVisualizer(data) {
     $('button#submit').text('See Next HIT').addClass('btn-primary').removeClass('btn-success');
     $('button#submit').off('click');
     $('button#submit').on('click', function() {
-        window.location.href = '/?viz=' + data[s_idx+1].ID + '&data=' + urlParams.get('data');
+        window.location.href = '?viz=' + data[s_idx+1].ID + '&data=' + urlParams.get('data');
     });
 
     // Render dropdown box to select data
