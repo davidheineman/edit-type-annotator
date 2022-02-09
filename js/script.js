@@ -131,7 +131,7 @@ function displayAnnotatorWebVisualizer(data) {
     for (const entry of data) {
         let li = $("<li>").append($("<a>", {
             class: "dropdown-item",
-            href: "/?viz=" + entry.ID + "&data=" + urlParams.get('data'),
+            href: "?viz=" + entry.ID + "&data=" + urlParams.get('data'),
             text: entry.ID
         }));
         idDropDown.append(li);
