@@ -102,7 +102,7 @@ function displayAnnotatorWebVisualizer(data) {
         url: 'data/_visible_data.txt',
         async: false
     }).done(function(data) {
-        for (const filename of data.split('\r\n')) {
+        for (const filename of data.split('\n')) {
             let li = $("<li>").append($("<a>", {
                 class: "dropdown-item",
                 href: "/?viz=" + hitid + "&data=" + filename,
