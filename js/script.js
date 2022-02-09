@@ -105,7 +105,7 @@ function displayAnnotatorWebVisualizer(data) {
         for (const filename of data.split('\n')) {
             let li = $("<li>").append($("<a>", {
                 class: "dropdown-item",
-                href: "/?viz=" + hitid + "&data=" + filename,
+                href: "?viz=" + hitid + "&data=" + filename,
                 text: filename
             }));
             dropDownMenu.append(li);
