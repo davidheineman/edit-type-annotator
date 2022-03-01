@@ -12,5 +12,5 @@ batch_2_3_alex_final
 batch_2_3_marcus_final
 batch_3_0_categorization
 batch_3_1_span_fixing
-onboarding_angana_fix_spans
+onboarding_jonathan_rate_sentences_final
 onboarding_angana_rate_sentences_final
