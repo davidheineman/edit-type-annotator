@@ -16,6 +16,8 @@ batch_3_1_span_fixing
 batch_3_2_simplification_rating
 batch_3_3_alex_final
 batch_3_3_marcus_final
+batch_3_3_angana_final
+batch_3_3_panya_final
 onboarding_jonathan_rate_sentences_final
 onboarding_angana_rate_sentences_final
 onboarding_panya_rate_sentences_final
