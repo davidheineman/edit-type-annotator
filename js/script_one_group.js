@@ -186,8 +186,6 @@ function generateView(sent) {
     $(".input-sent").html(sent.Original);
 
     createGroup(sent.Deletions, "#del-list");
-    createGroup(sent.Paraphrases, "#par-list");
-    createGroup(sent.Splittings, "#spt-list");
  
     if (enable_fix_spans) {
         initFixButtons();
