@@ -211,23 +211,24 @@ function makeSortable(container_id) {
 function createGroup(df, container_id) {
     for (let i = 0; i < df.length; i++) {
         // Write sentence
-        let s = df[i][0];           // sentence
-        let source = df[i][1];      // source
+        let s = df[i][1];           // sentence
+        let source = df[i][2];      // source
         let contr = "";             // container for sent
         
         // Write beginning of sentence
-        contr = contr.concat(s.substring(0, df[i][1][1]));
+        contr = contr.concat(s.substring(0, df[i][2][1]));
 
         // Sorts edits in order of first index
         // This is just in case the input data is out of order
         if (df[i].length > 2)
-            df[i] = df[i].slice(0, 2).concat(df[i].slice(2).sort(function(a, b) {
+            df[i] = df[i].slice(0, 3).concat(df[i].slice(3).sort(function(a, b) {
+                // return a[2] - b[2];
                 return a[1] - b[1];
             }));
-
+        
         // Check to make there's no overlapping edits
         // This repeition error occured in about 1-2 sentences per HIT
-        let j = 2
+        let j = 3
         while (j < df[i].length-1) {
             let edit = df[i][j]
 
@@ -252,7 +253,7 @@ function createGroup(df, container_id) {
         }
 
         // Show edits
-        for (let j = 2; j < df[i].length; j++) {
+        for (let j = 3; j < df[i].length; j++) {
             let edit = df[i][j];
 
             // Add the non-annotated part of the sentence
@@ -281,10 +282,18 @@ function createGroup(df, container_id) {
         contr = contr.concat(s.substring(df[i].at(-1)[2]));
 
         // Create col container for sentence
-        let box = '<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div>'
         let fix_button = '<button type="button" class="btn btn-outline-secondary btn-fix btn-hide" data-dismiss="modal">Fix</button>'
-        let div = "<div class='row' source='" + source + "'><div class='col-2'>" + box + fix_button + "</div><div class='col-10'><p>" + contr + "</p></div></div>";
-        let li = $("<li class='list-group-item'></li>").append($(div));
+        let background_color = ""
+
+        // readonly
+        let box = `<input min="0" max="100" class="form-control" value="${df[i][0]}" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div>`
+        if (df[i][0] == -1) {
+            // fix_button = '<button type="button" class="btn btn-outline-secondary btn-fix btn-hide" data-dismiss="modal">Fix</button>'
+            box = `<input min="0" max="100" class="form-control" aria-label="Score"><div class="invalid-feedback">Please enter a value 0-100</div>`
+            background_color = "bg-washed-red"
+        }
+        let div = `<div class='row' source='` + source + "'><div class='col-2'>" + box + fix_button + `</div><div class='col-10'><p>` + contr + "</p></div></div>";
+        let li = $(`<li class='list-group-item ${background_color} '></li>`).append($(div));
 
         // Override if we've disabled rating
         if (!enable_rating) {

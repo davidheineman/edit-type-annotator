@@ -1,0 +1,120 @@
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script><crowd-form answer-format="flatten-objects">
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet" />
+<link href="https://davidheineman.github.io/edit-type-annotator/css/style.css" rel="stylesheet" /><!-- https://davidheineman.github.io/edit-type-annotator/ -->
+<title></title>
+<div class="container" id="paragraph-container">
+<h1>Evaluate Quality of Simplifications</h1>
+
+<hr />
+<div class="header">
+<p class="lead"><button class="btn btn-outline-dark" data-target="#instructions" data-toggle="modal" id="view-instructions" type="button">View Instructions</button></p>
+
+<h4><span id="id-label">Sentence ID: </span><span id="curr">${id}</span></h4>
+</div>
+
+<div class="card">
+<div class="jumbotron jumbotron-fluid cwi-box card-body">
+<div class="row">
+<div class="alert alert-info" role="alert">
+<div class="input-sent" id="input-sent-above">&nbsp;</div>
+</div>
+
+<h4>Deletion-focused Simplifications</h4>
+
+<ul class="list-group list-group-flush" id="del-list">
+</ul>
+
+<div class="alert alert-info" role="alert">
+<div class="input-sent" id="input-sent-above">&nbsp;</div>
+</div>
+
+<h4>Paraphrasing-focused Simplifications</h4>
+
+<ul class="list-group list-group-flush" id="par-list">
+</ul>
+
+<div class="alert alert-info" role="alert">
+<div class="input-sent" id="input-sent-above">&nbsp;</div>
+</div>
+
+<h4>Splitting-focused Simplifications</h4>
+
+<ul class="list-group list-group-flush" id="spt-list">
+</ul>
+<!-- <div class="alert alert-info" role="alert">
+                                <div class='input-sent' id='input-sent-below'></div>
+                            </div> -->
+
+<div class="submit-buttons"><button class="btn btn-success" id="submit" type="submit">Submit Annotations</button><button class="btn btn-primary hidden-pg" id="next-pg" type="submit">Export Data &amp; Next Paragraph</button></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Invalid paragraph ID container -->
+
+<div class="container" id="null-container">
+<h1>Paragrpah Not Found</h1>
+
+<h4>Please make sure the URL you have been given is correct</h4>
+</div>
+<!-- Instructions Modal -->
+
+<div aria-hidden="true" aria-labelledby="instructionsTitle" class="modal fade" id="instructions" role="dialog" tabindex="-1">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="instructionsTitle">Instructions</h5>
+</div>
+
+<div class="modal-body">
+<p>You are given <span class="ih">a complex sentence</span>. Perform these tasks:</p>
+
+<ul><!-- <li class='li-hide' id='li-rank'>Rank sentences based on how well they <span class='ih'>simplify</span> they original sentence</li> --><!-- <li class='li-hide' id='li-rate'>Rate senteces based on how well they preseve <span class='ih'>meaning</span> and <span class='ih'>fluency</span>.</li> -->
+	<li class="li-hide" id="li-rate">Rate senteces based on how well they <span class="ih">simplify</span> they original sentence and preseve <span class="ih">meaning</span> and <span class="ih">fluency</span>.</li>
+	<li class="li-hide" id="li-categorization">Fix categorization of sentences</li>
+	<li class="li-hide" id="li-fix">Fix errors in our generated sentence changes</li>
+</ul>
+</div>
+
+<div class="modal-footer"><button class="btn btn-secondary" data-dismiss="modal" id="close-instructions" type="button">Close</button></div>
+</div>
+</div>
+</div>
+<!-- Span editing Modal -->
+
+<div aria-hidden="true" aria-labelledby="spanEditingTitle" class="modal fade" id="fix-spans" role="dialog" tabindex="-1">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="spanEditingTitle">Edit Span</h5>
+
+<div class="fix-span-instructions">To add a paraphrase, click and drag an area with no highlights or edits</div>
+
+<div class="alert alert-info" role="alert">
+<div class="input-sent">&nbsp;</div>
+</div>
+</div>
+
+<div class="modal-body span-modal-body" id="fix-spans-body">&nbsp;</div>
+
+<div class="modal-footer">
+<div class="modal-footer-left"><button class="btn btn-outline-dark" data-dismiss="modal" id="fix-spans-add-del" type="button">Add</button><button class="btn btn-outline-dark" data-dismiss="modal" id="fix-spans-add-spt" type="button">Add</button></div>
+
+<div class="modal-footer-right"><button class="btn btn-danger" data-dismiss="modal" id="fix-spans-cancel" type="button">Reset</button><button class="btn btn-primary" data-dismiss="modal" id="fix-spans-submit" type="button">Save</button></div>
+</div>
+</div>
+</div>
+</div>
+<!-- AWS Input Bridge -->
+<crowd-input id="mturk-hit" name="mturk-hit" type="hidden" value=""> </crowd-input> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!-- Sortable code --> 
+<script src="https://sortablejs.github.io/Sortable/Sortable.js"></script> 
+<script src="https://davidheineman.github.io/edit-type-annotator/js/script_three_new_reference.js"></script> <!-- https://davidheineman.github.io/edit-type-annotator/ --> <!-- <script>modifyIterfaceOptions(enable_fix_spans=false, make_sortable=true, enable_sorting_between_categories=false, enable_rating=true)</script> --> <!-- <script>startupInterface(is_mturk=false, data_file='data/batch_1_2_simplificaiton_rating.json');</script> --> 
+<!-- <script>modifyIterfaceOptions(enable_fix_spans=${enable_fix_spans}, make_sortable=${make_sortable}, enable_sorting_between_categories=${enable_sorting_between_categories}, enable_rating=${enable_rating})</script>  -->
+<script>modifyIterfaceOptions(enable_fix_spans=true, make_sortable=true, enable_sorting_between_categories=true, enable_rating=true)</script>
+<script>startupInterface(is_mturk=true, data_file='data/${batch_name}.json');</script> 
+</crowd-form>

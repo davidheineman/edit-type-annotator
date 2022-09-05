@@ -181,3 +181,7 @@ h1 {
 .btn-outline-secondary {
     color: #3c4246;
 }
+
+.bg-washed-red {
+    background-color: #ffe4e4 !important;
+}
