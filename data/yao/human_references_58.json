@@ -1,0 +1,466 @@
+[
+    {
+        "id": 0,
+        "original": "Convinced that the grounds were haunted, they decided to publish their findings in a book An Adventure (1911), under the pseudonyms of Elizabeth Morison and Frances Lamont.",
+        "original_spans": [],
+        "simplified": "Convinced that the grounds were visited by souls, they decided to publish their findings in a book An Adventure (1911), under the false name of Elizabeth Morison and Frances Lamont.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 1,
+        "original": "Convinced that the grounds were haunted, they decided to publish their findings in a book An Adventure (1911), under the pseudonyms of Elizabeth Morison and Frances Lamont.",
+        "original_spans": [],
+        "simplified": "Convinced that the grounds were haunted, they decided to publish their findings in a book an adventure (1911), under the pseudonyms of elizabeth morison and frances grant.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 2,
+        "original": "Convinced that the grounds were haunted, they decided to publish their findings in a book An Adventure (1911), under the pseudonyms of Elizabeth Morison and Frances Lamont.",
+        "original_spans": [],
+        "simplified": "They were sure that the grounds were haunted. || They wrote a book about it called An Adventure in 1911. || They used the names Elizabeth Morison and Frances Lamont.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 3,
+        "original": "Fearing that Drek will destroy the galaxy, Clank asks Ratchet to help him find the famous superhero Captain Qwark, in an effort to stop Drek.",
+        "original_spans": [],
+        "simplified": "To stop Drek from destroying the galaxy, Clank  asks for help from Ratchet to find Captain Qwark.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 4,
+        "original": "Fearing that Drek will destroy the galaxy, Clank asks Ratchet to help him find the famous superhero Captain Qwark, in an effort to stop Drek.",
+        "original_spans": [],
+        "simplified": "Clank was fearing that Drek will destroy the galaxy, he asked Ratchet to help him find the famous superhero Captain Qwark, in an effort to stop Drek.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 5,
+        "original": "Fearing that Drek will destroy the galaxy, Clank asks Ratchet to help him find the famous superhero Captain Qwark, in an effort to stop Drek.",
+        "original_spans": [],
+        "simplified": "Clank wants to stop drek, and wants ratchet to help him find a superhero called captain qwark, who he thinks will stop drek.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 6,
+        "original": "She was left behind (explanations for this vary) when the rest of the Nicole\u00f1os were moved to the mainland.",
+        "original_spans": [],
+        "simplified": "She was left behind when the rest of the Nicolenos were moved to the mainland.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 7,
+        "original": "She was left behind (explanations for this vary) when the rest of the Nicole\u00f1os were moved to the mainland.",
+        "original_spans": [],
+        "simplified": "She was left alone on the island when the rest of the nicole\u00f1os were moved to the missions.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 8,
+        "original": "She was left behind (explanations for this vary) when the rest of the Nicole\u00f1os were moved to the mainland.",
+        "original_spans": [],
+        "simplified": "She was left behind when the rest of the Nicole\u00f1os were moved to the mainland. || There are various explanations for why she was left behind.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 9,
+        "original": "He toured with the IPO in the spring of 1990 for their first-ever performance in the Soviet Union, with concerts in Moscow and Leningrad, and toured with the IPO again in 1994, performing in China and India.",
+        "original_spans": [],
+        "simplified": "He toured with the ipo in the spring of 1990 for their first-ever performance in the ussr, with concerts in moscow and leningrad, and toured with the ipo again in 1994, performing in china and india.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 10,
+        "original": "He toured with the IPO in the spring of 1990 for their first-ever performance in the Soviet Union, with concerts in Moscow and Leningrad, and toured with the IPO again in 1994, performing in China and India.",
+        "original_spans": [],
+        "simplified": "He performed with the IPO in the spring of 1990 for their first time in the Soviet Union with concerts in Moscow and Leningrad, and performed with the IPO again in China and India in 1994.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 11,
+        "original": "He toured with the IPO in the spring of 1990 for their first-ever performance in the Soviet Union, with concerts in Moscow and Leningrad, and toured with the IPO again in 1994, performing in China and India.",
+        "original_spans": [],
+        "simplified": "He toured with the IPO in the spring of 1990, their first-ever performance in the Soviet Union. || They played in Moscow and Leningrad. || He toured with them again in 1994 in China and India.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 12,
+        "original": "Mercury is similar in appearance to the Moon: it is heavily cratered with regions of smooth plains, has no natural satellites and no substantial atmosphere.",
+        "original_spans": [],
+        "simplified": "Mercury looks a lot like our moon : it has many craters with areas of smooth plains, no moons around it and no atmosphere.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 13,
+        "original": "Mercury is similar in appearance to the Moon: it is heavily cratered with regions of smooth plains, has no natural satellites and no substantial atmosphere.",
+        "original_spans": [],
+        "simplified": "Mercury, which looks like the Moon with its many craters and areas of smoothness,  has no orbiting bodies around it and a minimal atmosphere.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 14,
+        "original": "Mercury is similar in appearance to the Moon: it is heavily cratered with regions of smooth plains, has no natural satellites and no substantial atmosphere.",
+        "original_spans": [],
+        "simplified": "Mercury looks similar to the Moon. || It is full of craters with areas of smooth plains. || It has no natural satelites and no substantial atmosphere.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 15,
+        "original": "Later, Esperanto speakers began to see the language and the culture that had grown up around it as ends in themselves, even if Esperanto is never adopted by the United Nations or other international organizations.",
+        "original_spans": [],
+        "simplified": "Esperanto speakers began to see the language and the culture that had grown up around it as ends in themselves, even if Esperanto is never adopted by the United Nations or other international organizations.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 16,
+        "original": "Later, Esperanto speakers began to see the language and the culture that had grown up around it as ends in themselves, even if Esperanto is never adopted by the United Nations or other international organizations.",
+        "original_spans": [],
+        "simplified": "After that, esperanto speakers began to see the language and the culture that was shared is owned by themselves, even if esperanto is never chosen by the united nations or other international organizations.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 17,
+        "original": "The spacecraft consists of two main elements: the NASA Cassini orbiter, named after the Italian-French astronomer Giovanni Domenico Cassini, and the ESA Huygens probe, named after the Dutch astronomer, mathematician and physicist Christiaan Huygens.",
+        "original_spans": [],
+        "simplified": "The spacecraft is made of two main elements: the NASA Cassini orbiter, named after the Italian-French astronomer Giovanni Domenico Cassini, and the ESA Huygens probe, named after the Dutch astronomer, mathematician and physicist Christiaan Huygens.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 18,
+        "original": "The spacecraft consists of two main elements: the NASA Cassini orbiter, named after the Italian-French astronomer Giovanni Domenico Cassini, and the ESA Huygens probe, named after the Dutch astronomer, mathematician and physicist Christiaan Huygens.",
+        "original_spans": [],
+        "simplified": "The spacecraft has two main parts : the nasa cassini orbiter, named after the italian-french astronomer giovanni domenico cassini, and the esa huygens probe, named after the dutch astronomer, mathematician, and physicist christiaan huygens.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 19,
+        "original": "The spacecraft consists of two main elements: the NASA Cassini orbiter, named after the Italian-French astronomer Giovanni Domenico Cassini, and the ESA Huygens probe, named after the Dutch astronomer, mathematician and physicist Christiaan Huygens.",
+        "original_spans": [],
+        "simplified": "The spacecraft has two main parts: the NASA Cassini orbiter and the ESA Huygens probe. || The orbiter is named after the Italian-French astronomer Giovanni Domenico Cassini. || The probe is named after the Dutch astronomer, mathematician and physicist Christiaan Huygens.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 20,
+        "original": "Civil unrest in northern Italy spawns the medieval musical form of Geisslerlieder, penitential songs sung by wandering bands of Flagellants.",
+        "original_spans": [],
+        "simplified": "Civil unrest in northern italy starts the medieval musical form of geisslerlieder, songs of repentance sung by wandering bands of flagellants.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 21,
+        "original": "Civil unrest in northern Italy spawns the medieval musical form of Geisslerlieder, penitential songs sung by wandering bands of Flagellants.",
+        "original_spans": [],
+        "simplified": "Civil unrest in northern Italy creates the medieval musical form of Geisslerlieder, sad and remorseful songs sung by traveling groups of Flagellants.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 22,
+        "original": "Civil unrest in northern Italy spawns the medieval musical form of Geisslerlieder, penitential songs sung by wandering bands of Flagellants.",
+        "original_spans": [],
+        "simplified": "Geisslerlieder was created from civil unrest in Northern Italy through songs sung by travelling bands of Flagellants.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 23,
+        "original": "It has a capacity of 98,772, making it the largest stadium in Europe, and the eleventh largest in the world.",
+        "original_spans": [],
+        "simplified": "It can hold 98,772 people, making it the largest stadium in europe and seventh largest football stadium in the world.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 24,
+        "original": "It has a capacity of 98,772, making it the largest stadium in Europe, and the eleventh largest in the world.",
+        "original_spans": [],
+        "simplified": "It can accommodate 98,772 people which makes it the largest stadium in Europe and the eleventh largest in the world.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 25,
+        "original": "It has a capacity of 98,772, making it the largest stadium in Europe, and the eleventh largest in the world.",
+        "original_spans": [],
+        "simplified": "It is the largest stadium in Europe with a capacity of 98,772. || It is also the eleventh largest in the world.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 26,
+        "original": "In return, Rollo swore fealty to Charles, converted to Christianity, and undertook to defend the northern region of France against the incursions of other Viking groups.",
+        "original_spans": [],
+        "simplified": "In return, rollo swore fealty to charles, converted to christianity, and swore to defend the northern region of france against raids by other viking groups.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 27,
+        "original": "In return, Rollo swore fealty to Charles, converted to Christianity, and undertook to defend the northern region of France against the incursions of other Viking groups.",
+        "original_spans": [],
+        "simplified": "In return, Rollo pledged faithfulness to Charles, became a Christian, and took steps to defend the northern region of France against any other  Viking groups.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 28,
+        "original": "In return, Rollo swore fealty to Charles, converted to Christianity, and undertook to defend the northern region of France against the incursions of other Viking groups.",
+        "original_spans": [],
+        "simplified": "Rollo bowed to Charles. || He converted to Christianity. || He defended the northern area of France from Vikings.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 29,
+        "original": "In 2005, Meissner became the second American woman to land the triple Axel jump in national competition.",
+        "original_spans": [],
+        "simplified": "She is the second american woman and the sixth woman worldwide to do a triple axel jump.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 30,
+        "original": "In 2005, Meissner became the second American woman to land the triple Axel jump in national competition.",
+        "original_spans": [],
+        "simplified": "Meissner became the second American woman to land the triple Axel jump in national competition in 2005.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 31,
+        "original": "In 2005, Meissner became the second American woman to land the triple Axel jump in national competition.",
+        "original_spans": [],
+        "simplified": "In 2005, Meissner completed the triple axel jump in a national competition. || She was the second American woman to ever do so.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 32,
+        "original": "Conversely, bills proposed by the Law Commission, and consolidation bills, start in the House of Lords.",
+        "original_spans": [],
+        "simplified": "Bills proposed by the Law Commission and consolidation bills start in the House of Lords.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 33,
+        "original": "Conversely, bills proposed by the Law Commission, and consolidation bills, start in the House of Lords.",
+        "original_spans": [],
+        "simplified": "Bills proposed by the Law Commission, and consolidation bills, start in the House of Lords.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 34,
+        "original": "Conversely, bills proposed by the Law Commission, and consolidation bills, start in the House of Lords.",
+        "original_spans": [],
+        "simplified": "In the united kingdom, law commission bills and consolidation bills start in the house of lords.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 35,
+        "original": "A few animals have chromatic response, changing color in changing environments, either seasonally (ermine, snowshoe hare) or far more rapidly with chromatophores in their integument (the cephalopod family).",
+        "original_spans": [],
+        "simplified": "Some animals have 'chromatic responses', they change color depending on what's around them.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 36,
+        "original": "A few animals have chromatic response, changing color in changing environments, either seasonally (ermine, snowshoe hare) or far more rapidly with chromatophores in their integument (the cephalopod family).",
+        "original_spans": [],
+        "simplified": "A few animals have chromatic response, changing color while changing environments, either seasonally (ermine, snowshoe hare) or far more quickly with chromatophores in their outre protective layer  (the cephalopod family).",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 37,
+        "original": "A few animals have chromatic response, changing color in changing environments, either seasonally (ermine, snowshoe hare) or far more rapidly with chromatophores in their integument (the cephalopod family).",
+        "original_spans": [],
+        "simplified": "A few animals have a chromatic response, they change color in changing environments, either seasonally (ermine, snowshoe hare) or far more rapidly like the chameleon and the cephalopod family.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 38,
+        "original": "He served as the prime minister of Egypt between 1945 and 1946 and again from 1946 and 1948.",
+        "original_spans": [],
+        "simplified": "He was Egypt's Prime Minister between 1945 and 1948.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 39,
+        "original": "He served as the prime minister of Egypt between 1945 and 1946 and again from 1946 and 1948.",
+        "original_spans": [],
+        "simplified": "He was the prime minister of egypt from 1945 to 1946 and again from 1946 to 1948.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 40,
+        "original": "He served as the prime minister of Egypt between 1945 and 1946 and again from 1946 and 1948.",
+        "original_spans": [],
+        "simplified": "He was the prime minister of Egypt between 1945 and 1946 and again from 1946 and 1948.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 41,
+        "original": "Seventy-five defencemen are in the Hall of Fame, more than any other current position, while only 35 goaltenders have been inducted.",
+        "original_spans": [],
+        "simplified": "Seventy-five defencemen are in the Hall of Fame, but only 35 goaltenders.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 42,
+        "original": "Seventy-five defencemen are in the Hall of Fame, more than any other current position, while only 35 goaltenders have been inducted.",
+        "original_spans": [],
+        "simplified": "Seventy-five defencemen are in the Hall of Fame while only 35 goaltenders have been inducted.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 43,
+        "original": "Seventy-five defencemen are in the Hall of Fame, more than any other current position, while only 35 goaltenders have been inducted.",
+        "original_spans": [],
+        "simplified": "Seventy-five defencemen are in the hall of fame, more than any other current position, while only 35 goaltenders have been added.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 44,
+        "original": "Instead, the crew fashioned a trailer with a cantilevered arm attached to the \"hovercraft\" and shot the scene while riding up Templin Highway north of Santa Clarita.",
+        "original_spans": [],
+        "simplified": "Instead, the crew made a trailer with an arm attached to the craft and filmed the scene while driving.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 45,
+        "original": "Instead, the crew fashioned a trailer with a cantilevered arm attached to the \"hovercraft\" and shot the scene while riding up Templin Highway north of Santa Clarita.",
+        "original_spans": [],
+        "simplified": "Instead, the crew designed a trailer with a cantilevered arm attached to the \"hovercraft\" and shot the scene while riding up Templin Highway north of Santa Clarita.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 46,
+        "original": "Instead, the crew fashioned a trailer with a cantilevered arm attached to the \"hovercraft\" and shot the scene while riding up Templin Highway north of Santa Clarita.",
+        "original_spans": [],
+        "simplified": "They built a trailer connected to the \"hover craft\" in the movie and shot the scene while riding up a highway north of santa clarita.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 47,
+        "original": "Val Venis defeated Rikishi in a Steel cage match to retain the WWF Intercontinental Championship (14:10) Venis pinned Rikishi after Tazz hit Rikishi with a TV camera.",
+        "original_spans": [],
+        "simplified": "Val Venis defeated Rikishi in a Steel cage match; he pinned Rikishi after he was hit by a camera.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 48,
+        "original": "Val Venis defeated Rikishi in a Steel cage match to retain the WWF Intercontinental Championship (14:10) Venis pinned Rikishi after Tazz hit Rikishi with a TV camera.",
+        "original_spans": [],
+        "simplified": "Val Venis defeated Rikishi in a Steel cage match to retain the WWF Intercontinental Championship (14:10) and Venis pinned Rikishi after Tazz hit Rikishi with a TV camera",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 49,
+        "original": "Val Venis defeated Rikishi in a Steel cage match to retain the WWF Intercontinental Championship (14:10) Venis pinned Rikishi after Tazz hit Rikishi with a TV camera.",
+        "original_spans": [],
+        "simplified": "Val venis beat rikishi in a steel cage match to retain the wwf intercontinental championship (14:10) venis pinned rikishi after tazz hit rikishi with a tv camera.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 50,
+        "original": "Like previous assessment reports, it consists of four reports, three of them from its working groups.",
+        "original_spans": [],
+        "simplified": "The assessment report contiains four reports, just like previous reports, and three of them are from working groups.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 51,
+        "original": "Like previous assessment reports, it consists of four reports, three of them from its working groups.",
+        "original_spans": [],
+        "simplified": "Like earlier ipcc reports, it contains four reports, three of them from its working groups.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 52,
+        "original": "Like previous assessment reports, it consists of four reports, three of them from its working groups.",
+        "original_spans": [],
+        "simplified": "There are four assessment reports. || Three reports come from working reports.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 53,
+        "original": "Furthermore, she appeared in several music videos, including \"It Girl\" by John Oates and \"Just Lose It\" by Eminem.",
+        "original_spans": [],
+        "simplified": "Also, she was in a few music videos, for example \" it girl \" by john oates and \" just lose it \" by eminem.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    },
+    {
+        "id": 54,
+        "original": "Furthermore, she appeared in several music videos, including \"It Girl\" by John Oates and \"Just Lose It\" by Eminem.",
+        "original_spans": [],
+        "simplified": "She was in a few music videos like  \"It Girl\" by John Oates and \"Just Lose It\" by Eminem.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 55,
+        "original": "Furthermore, she appeared in several music videos, including \"It Girl\" by John Oates and \"Just Lose It\" by Eminem.",
+        "original_spans": [],
+        "simplified": "Furthermore, she appeared in several music videos, like  \"It Girl\" by John Oates and \"Just Lose It\" by Eminem.",
+        "simplified_spans": [],
+        "system": "new_systems/turk_corpus_random.txt"
+    },
+    {
+        "id": 56,
+        "original": "The other incorporated cities on the Palos Verdes Peninsula include Rancho Palos Verdes, Rolling Hills Estates and Rolling Hills.",
+        "original_spans": [],
+        "simplified": "There are several incorporated cities on the Palos Verdes Peninsula.",
+        "simplified_spans": [],
+        "system": "new_systems/asset.test.simp.second"
+    },
+    {
+        "id": 57,
+        "original": "The other incorporated cities on the Palos Verdes Peninsula include Rancho Palos Verdes, Rolling Hills Estates and Rolling Hills.",
+        "original_spans": [],
+        "simplified": "Palos verdes estates, rancho palos verdes, rolling hills, and rolling hills estates are the larger cities in the area.",
+        "simplified_spans": [],
+        "system": "new_systems/simple_wiki.txt"
+    }
+]
