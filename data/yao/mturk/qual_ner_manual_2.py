@@ -34,6 +34,11 @@ def main() -> None:
 
     # connect to mturk
     mturk = common.get_client()
+
+    # This will return $10,000.00 in the MTurk Developer Sandbox
+    print(mturk.get_account_balance()['AvailableBalance'])
+
+
     # print(f"Available balance: ${mturk.get_account_balance()['AvailableBalance']}")
 
     # load assignments from file
@@ -66,7 +71,8 @@ def main() -> None:
         "marcus": "3M3TOV9TJB0X2NGXSAXVS5GXQOE6LF",
         "vishnesh": "32X4OLFWWCJK693HB670K2061NNDTH",
         "yao": "38SUCLIH8PZZJ176G17FLKORY83DVX",
-        "elizabeth": "3KKCXPMQWS7X0WS29CXTXNH0EOIIZ5"
+        "elizabeth": "3KKCXPMQWS7X0WS29CXTXNH0EOIIZ5",
+        "alex": "3U691EAA0V9C7N4J767OU5P9MQQKO6"
     }
     
     # print(mturk.list_workers_with_qualification_type(QualificationTypeId=qual_id, MaxResults=100))
@@ -96,7 +102,8 @@ def main() -> None:
         "marcus": "A3CJO5W1MN7Z60",
         "vishnesh": "A3FSXATCMA26OL",
         "yao": "A10DVKNKENJQNI",
-        "elizabeth": "AE6WBSVYJ3OXK"
+        "elizabeth": "AE6WBSVYJ3OXK",
+        "alex": "A181JX3G2PMEIT"
         }
 
     for worker_name, qual_id in qual_id_dicts.items():
