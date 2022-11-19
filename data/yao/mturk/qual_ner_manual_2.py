@@ -72,7 +72,8 @@ def main() -> None:
         "vishnesh": "32X4OLFWWCJK693HB670K2061NNDTH",
         "yao": "38SUCLIH8PZZJ176G17FLKORY83DVX",
         "elizabeth": "3KKCXPMQWS7X0WS29CXTXNH0EOIIZ5",
-        "alex": "3U691EAA0V9C7N4J767OU5P9MQQKO6"
+        "alex": "3U691EAA0V9C7N4J767OU5P9MQQKO6",
+        "govind": "3Z7S37PR6WVP5ZYCWSR37ALTWSM89B"
     }
     
     # print(mturk.list_workers_with_qualification_type(QualificationTypeId=qual_id, MaxResults=100))
@@ -103,7 +104,8 @@ def main() -> None:
         "vishnesh": "A3FSXATCMA26OL",
         "yao": "A10DVKNKENJQNI",
         "elizabeth": "AE6WBSVYJ3OXK",
-        "alex": "A181JX3G2PMEIT"
+        "alex": "A181JX3G2PMEIT",
+        "govind": "A2I9VD8HWD0TGV"
         }
 
     for worker_name, qual_id in qual_id_dicts.items():
