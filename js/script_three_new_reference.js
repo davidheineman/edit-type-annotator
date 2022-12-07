@@ -820,6 +820,13 @@ $('button#submit').on('click', function() {
         }
     })
 
+    try {
+        $('input[name=te]').attr('value', TimeMe.getTimeOnCurrentPageInSeconds());
+        // console.log(TimeMe.getTimeOnCurrentPageInSeconds())
+    } catch {
+
+    }
+
     // If the entry is valid, submit the form
     if (valid || !enable_rating)
         submitForm();
