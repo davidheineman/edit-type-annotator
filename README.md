@@ -1,12 +1,5 @@
-## Sentence Ranking Annotator
-Work-in-progress annotator for upcoming paper. `index.html` can be used both as a standalone annotator or dropped directly into mTurk for annotation.
-
-**View the [tutorial](https://davidheineman.github.io/edit-type-annotator/tutorial), or see a [demo of the interface](https://davidheineman.github.io/edit-type-annotator/?s=0).**
-
 ### How to use
-In `script.js`, it calls the content in `data/input.json` for the annotator to use based on either the url (the `?s=n` suffix) or directly from mTurk. If you use mTurk, just make sure to update the `input.json` and upload an excel files of the sentence ids you want annotated.
-
-**NEW**: `Script.js` now supports specifying the input file. It will use `data/draft_input.json` as it's default, but just pass a string argument to the `startupInterface()` function at the bottom of `index.html` to use a different file. Should look like: `startupInterface(is_mturk=true, data_path='data/path-to-data.json')`
+In `script.js`, it calls the content in `data/example.json` for the annotator to use based on either the url (the `?s=n` suffix) or directly from mTurk. If you use mTurk, just make sure to update the `data/example.json` and upload an excel files of the sentence ids you want annotated.
 
 #### Options
 See the last second to last line of `index.html` for options when using the interface:
@@ -18,8 +11,6 @@ See the last second to last line of `index.html` for options when using the inte
 - `enable_sorting_between_categories`: Allows moving sentences between categories.
 - `enable_rating`: Enables rating sentences.
 
-#### Output Vizualizer
-To vizualize the results, add a field `HIT_ID` to each output. Then, visit `/?viz=[HIT_ID]` to view. See `data/preliminary_output.json` for an of the data or [here](https://davidheineman.github.io/edit-type-annotator/?viz=36TFCYNS45PNLX0Q35IQ2HPZBJBXHJ) for a demo.
 
 #### Format of `input.json`
 It contains a list of sentences, each with an ID, the original sentence, and any given edits. This interface also optionally allows for categorizing sentences into types of edits.
